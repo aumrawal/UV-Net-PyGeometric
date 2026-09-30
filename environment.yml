@@ -1,0 +1,21 @@
+# Apple-silicon (osx-arm64) environment for the PyG port of UV-Net.
+# PyTorch comes from conda-forge on purpose: mixing pip's torch wheel with conda-forge
+# OpenCascade/numpy loads two libomp copies and aborts ("OMP: Error #15").
+# occwl is not on PyPI; install it afterwards with:
+#   pip install --no-deps git+https://github.com/AutodeskAILab/occwl.git
+name: uvnet_pyg
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pythonocc-core=7.7.2
+  - pytorch>=2.5        # tested with 2.10.0, MPS backend
+  - numpy
+  - scipy
+  - tqdm
+  - networkx
+  - pip
+  - pip:
+      - torch_geometric==2.8.0.post1   # pure-python; no torch_scatter/torch_sparse needed
+      - tensorboard
+      - deprecate
