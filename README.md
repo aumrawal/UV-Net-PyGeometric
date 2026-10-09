@@ -56,6 +56,7 @@ datasets/fusion360.py       Fusion 360 Gallery segmentation: same graph format, 
 process/fusion360_to_pyg.py Fusion 360 Gallery s2.0.0 (labels in .seg files) -> PyG graphs + split.json
 kaggle/                     script kernels that preprocess and train on Fusion 360 Gallery on a Kaggle GPU
 train.py                    training / testing (accuracy, per-class IoU, TensorBoard, checkpoints, resume)
+analysis/                   error analysis of trained runs: confusions, renders of wrong faces, topology probe
 docs/                       results and a write-up of how this port was built
 ```
 
