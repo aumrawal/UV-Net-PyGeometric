@@ -1,8 +1,10 @@
 """
-Train / test UV-Net (PyTorch Geometric port) for per-face machining feature segmentation on MFCAD++.
+Train / test UV-Net (PyTorch Geometric port) for per-face segmentation on MFCAD++ (machining
+features, the default) or the Fusion 360 Gallery segmentation dataset (modeling operations).
 
     python train.py train --data_dir data/processed --epochs 100 --batch_size 64
     python train.py test  --data_dir data/processed --checkpoint results/<run>/best.pt
+    python train.py train --dataset fusion360 --data_dir data/fusion360_processed
 
 Device selection: CUDA if available, else Apple-silicon MPS, else CPU (override with --device).
 """
@@ -16,8 +18,14 @@ import torch.nn.functional as F
 from torch.utils.tensorboard import SummaryWriter
 from torch_geometric.loader import DataLoader
 
+from datasets.fusion360 import Fusion360Dataset, FUSION360_CLASSES
 from datasets.mfcadpp import MFCADPPDataset, MFCADPP_CLASSES
 from uvnet_pyg.models import UVNetSegmenter
+
+DATASETS = {
+    "mfcadpp": (MFCADPPDataset, MFCADPP_CLASSES),
+    "fusion360": (Fusion360Dataset, FUSION360_CLASSES),
+}
 
 
 def pick_device(name):
@@ -94,10 +102,11 @@ def train(args):
     (run_dir / "args.json").write_text(json.dumps(vars(args), indent=1))
     print(f"Device: {device} | run dir: {run_dir}")
 
-    train_set = MFCADPPDataset(args.data_dir, "train", random_rotate=args.random_rotate,
-                               max_samples=args.max_train_samples)
+    dataset_cls = DATASETS[args.dataset][0]
+    train_set = dataset_cls(args.data_dir, "train", random_rotate=args.random_rotate,
+                            max_samples=args.max_train_samples)
     # --val_split train (with --max_val_samples == --max_train_samples) gives an overfitting check
-    val_set = MFCADPPDataset(args.data_dir, args.val_split, max_samples=args.max_val_samples)
+    val_set = dataset_cls(args.data_dir, args.val_split, max_samples=args.max_val_samples)
     # drop_last avoids a size-1 BatchNorm batch, matching the original UV-Net loader
     train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, drop_last=True,
                               num_workers=args.num_workers, persistent_workers=args.num_workers > 0)
@@ -146,11 +155,12 @@ def test(args):
     ckpt = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     model = UVNetSegmenter(num_classes=ckpt["num_classes"]).to(device)
     model.load_state_dict(ckpt["model"])
-    test_set = MFCADPPDataset(args.data_dir, "test", max_samples=args.max_test_samples)
+    dataset_cls, class_names = DATASETS[args.dataset]
+    test_set = dataset_cls(args.data_dir, "test", max_samples=args.max_test_samples)
     loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
     m = run_epoch(model, loader, device, pad=bucket_sizes(args, device))
     print(f"Test: loss {m['loss']:.4f} | face accuracy {m['accuracy']:.4f} | mean IoU {m['mean_iou']:.4f}")
-    names = MFCADPP_CLASSES if ckpt["num_classes"] == len(MFCADPP_CLASSES) else range(ckpt["num_classes"])
+    names = class_names if ckpt["num_classes"] == len(class_names) else range(ckpt["num_classes"])
     for name, iou in zip(names, m["per_class_iou"]):
         print(f"  {str(name):28s} IoU {iou:.4f}")
     out = pathlib.Path(args.checkpoint).with_name("test_metrics.json")
@@ -158,12 +168,13 @@ def test(args):
 
 
 def main():
-    p = argparse.ArgumentParser("UV-Net (PyG) segmentation on MFCAD++")
+    p = argparse.ArgumentParser("UV-Net (PyG) segmentation on MFCAD++ / Fusion 360 Gallery")
     p.add_argument("mode", choices=("train", "test"))
+    p.add_argument("--dataset", default="mfcadpp", choices=tuple(DATASETS))
     p.add_argument("--data_dir", default="data/processed")
     p.add_argument("--checkpoint", default=None)
     p.add_argument("--resume", default=None, help="last.pt of an interrupted run; continues in the same run dir")
-    p.add_argument("--num_classes", type=int, default=MFCADPPDataset.num_classes)
+    p.add_argument("--num_classes", type=int, default=None, help="Default: the dataset's number of classes")
     p.add_argument("--epochs", type=int, default=100)
     p.add_argument("--batch_size", type=int, default=64)
     p.add_argument("--lr", type=float, default=1e-3)
@@ -183,6 +194,8 @@ def main():
     p.add_argument("--results_dir", default="results")
     p.add_argument("--experiment_name", default="mfcadpp_segmentation")
     args = p.parse_args()
+    if args.num_classes is None:
+        args.num_classes = DATASETS[args.dataset][0].num_classes
     if args.mode == "train":
         train(args)
     else:

@@ -52,6 +52,8 @@ uvnet_pyg/models.py         UVNetSegmenter (per-face classifier) + batch-shape b
 datasets/mfcadpp.py         dataset of preprocessed graphs, packed/memory-mapped cache, rotation augmentation
 process/step_to_pyg.py      STEP files -> PyG graphs with UV-grid features and labels (multiprocess)
 process/make_toy_dataset.py tiny synthetic MFCAD++-style dataset for a quick smoke test
+datasets/fusion360.py       Fusion 360 Gallery segmentation: same graph format, 8 modeling-operation classes
+process/fusion360_to_pyg.py Fusion 360 Gallery s2.0.0 (labels in .seg files) -> PyG graphs + split.json
 train.py                    training / testing (accuracy, per-class IoU, TensorBoard, checkpoints, resume)
 docs/                       results and a write-up of how this port was built
 ```
@@ -161,6 +163,24 @@ checkpoint.
 | `--save_every N` | Also keep a checkpoint every N epochs as `epoch_NNN.pt` (default 10; 0 keeps only `best.pt` and `last.pt`) |
 | `--pad_nodes 0` | Turn off batch-shape bucketing (on by default on MPS only; see below) |
 | `--lr`, `--batch_size`, `--epochs`, `--seed` | The usual |
+
+## Training on Fusion 360 Gallery segmentation
+
+The [Fusion 360 Gallery segmentation dataset](https://github.com/AutodeskAILab/Fusion360GalleryDataset/blob/master/docs/segmentation.md)
+(s2.0.0, 35,680 models) labels every face with the modeling operation that created it: ExtrudeSide,
+ExtrudeEnd, CutSide, CutEnd, Fillet, Chamfer, RevolveSide or RevolveEnd. Labels come from
+`breps/seg/<name>.seg`, one line per face in STEP order. The official file list only has train and test;
+20 % of train is held out for validation with the same shuffle as UV-Net
+(`train_test_split(random_state=42)`).
+
+```bash
+python process/fusion360_to_pyg.py /path/to/s2.0.0 data/fusion360_processed --num_processes 8
+python train.py train --dataset fusion360 --data_dir data/fusion360_processed --epochs 100 --batch_size 64
+python train.py test  --dataset fusion360 --data_dir data/fusion360_processed --checkpoint results/<experiment>/<timestamp>/best.pt
+```
+
+The model and hyperparameters are the same as for MFCAD++; only the label set (8 classes instead of 25)
+and the label source differ.
 
 ## Why batch-shape bucketing on Apple GPUs?
 
