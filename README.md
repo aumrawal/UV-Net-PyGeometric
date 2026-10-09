@@ -158,6 +158,7 @@ checkpoint.
 | `--random_rotate` | Augment with random 90° rotations |
 | `--max_train_samples N` | Train on the first N models only |
 | `--val_split train` | Validate on the training set, e.g. for an overfitting check with `--max_train_samples 64 --max_val_samples 64` |
+| `--save_every N` | Also keep a checkpoint every N epochs as `epoch_NNN.pt` (default 10; 0 keeps only `best.pt` and `last.pt`) |
 | `--pad_nodes 0` | Turn off batch-shape bucketing (on by default on MPS only; see below) |
 | `--lr`, `--batch_size`, `--epochs`, `--seed` | The usual |
 

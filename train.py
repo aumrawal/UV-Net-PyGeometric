@@ -135,6 +135,8 @@ def train(args):
         torch.save(ckpt, run_dir / "last.pt")
         if is_best:
             torch.save(ckpt, run_dir / "best.pt")
+        if args.save_every and epoch % args.save_every == 0:
+            torch.save(ckpt, run_dir / f"epoch_{epoch:03d}.pt")
     writer.close()
     print(f"Best val loss {best_val:.4f}. Checkpoint: {run_dir / 'best.pt'}")
 
@@ -165,6 +167,8 @@ def main():
     p.add_argument("--epochs", type=int, default=100)
     p.add_argument("--batch_size", type=int, default=64)
     p.add_argument("--lr", type=float, default=1e-3)
+    p.add_argument("--save_every", type=int, default=10,
+                   help="Also keep a checkpoint every N epochs as epoch_NNN.pt (0: only best.pt and last.pt)")
     p.add_argument("--val_split", default="val", choices=("train", "val", "test"),
                    help="Split used for validation; 'train' for an overfitting sanity check")
     p.add_argument("--random_rotate", action="store_true")
