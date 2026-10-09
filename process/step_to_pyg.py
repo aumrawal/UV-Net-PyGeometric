@@ -6,6 +6,7 @@ ADVANCED_FACE entity in the STEP file, so labels are read straight from the STEP
 transfer map. One `<stem>.pt` file (a torch_geometric.data.Data) is written per model:
 
     x          : F x U x V x 7  float16  face UV-grids (xyz, normal, trim mask), centered & scaled
+    face_attr  : F x 4          float32  exact area and bounding-box extent (dx, dy, dz) of each face, same scaling
     edge_attr  : E x U x 6      float16  edge U-grids (xyz, tangent), same normalization
     edge_index : 2 x E          int64    directed face-adjacency (both directions per B-rep edge)
     y          : F              int64    per-face machining feature label
@@ -77,7 +78,14 @@ def center_and_scale(face_feat, edge_feat):
     center = 0.5 * (lo + hi)
     face_feat[..., :3] = (face_feat[..., :3] - center) * scale
     edge_feat[..., :3] = (edge_feat[..., :3] - center) * scale
-    return face_feat, edge_feat
+    return face_feat, edge_feat, scale
+
+
+def exact_face_attributes(face):
+    """Trimmed surface area and bounding-box extent (dx, dy, dz) of a face, from the CAD kernel."""
+    box = face.exact_box()
+    extent = np.asarray(box.max_point(), dtype=np.float64) - np.asarray(box.min_point(), dtype=np.float64)
+    return [face.area(), *extent]
 
 
 def build_graph(solid, labels, curv_u, surf_u, surf_v):
@@ -89,9 +97,10 @@ def build_graph(solid, labels, curv_u, surf_u, surf_v):
     node_ids = sorted(graph.nodes)
     remap = {n: i for i, n in enumerate(node_ids)}
 
-    face_feat, y = [], []
+    face_feat, face_attr, y = [], [], []
     for n in node_ids:
         face = graph.nodes[n]["face"]
+        face_attr.append(exact_face_attributes(face))
         points = uvgrid(face, method="point", num_u=surf_u, num_v=surf_v)
         normals = uvgrid(face, method="normal", num_u=surf_u, num_v=surf_v)
         vis = uvgrid(face, method="visibility_status", num_u=surf_u, num_v=surf_v)
@@ -116,9 +125,14 @@ def build_graph(solid, labels, curv_u, surf_u, surf_v):
 
     if not (np.isfinite(face_feat).all() and np.isfinite(edge_feat).all()):
         raise RuntimeError("Non-finite UV-grid values")
-    face_feat, edge_feat = center_and_scale(face_feat, edge_feat)
+    face_feat, edge_feat, scale = center_and_scale(face_feat, edge_feat)
+    # Exact per-face attributes in the normalised length unit: area scales with scale^2, extents with scale
+    face_attr = np.asarray(face_attr, dtype=np.float64) * np.array([scale ** 2, scale, scale, scale])
+    if not np.isfinite(face_attr).all():
+        raise RuntimeError("Non-finite face attributes")
 
     return Data(
+        face_attr=torch.from_numpy(face_attr).float(),
         x=torch.from_numpy(face_feat).half(),
         edge_attr=torch.from_numpy(edge_feat).half(),
         edge_index=torch.tensor([src, dst], dtype=torch.long),

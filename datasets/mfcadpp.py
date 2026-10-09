@@ -90,12 +90,14 @@ def _load_or_build_cache(root, split, names):
         if pack["names_requested"] == list(names):
             return pack
         print(f"Split list changed; rebuilding {cache}")
-    xs, es, eis, ys, kept = [], [], [], [], []
+    xs, es, eis, ys, attrs, kept = [], [], [], [], [], []
     for name in tqdm(names, desc=f"Packing {split} cache"):
         d = torch.load(root / "graphs" / f"{name}.pt", weights_only=False)
         if d.edge_index.size(1) == 0:
             continue
         xs.append(d.x); es.append(d.edge_attr); eis.append(d.edge_index); ys.append(d.y); kept.append(name)
+        if getattr(d, "face_attr", None) is not None:
+            attrs.append(d.face_attr)
     face_counts = torch.tensor([0] + [x.size(0) for x in xs])
     edge_counts = torch.tensor([0] + [e.size(0) for e in es])
     pack = {
@@ -108,6 +110,8 @@ def _load_or_build_cache(root, split, names):
         "face_ptr": face_counts.cumsum(0),
         "edge_ptr": edge_counts.cumsum(0),
     }
+    if len(attrs) == len(xs):
+        pack["face_attr"] = torch.cat(attrs)  # sumF x 4 float32: exact area, bbox extent (older graphs lack it)
     cache.parent.mkdir(exist_ok=True)
     torch.save(pack, cache)
     del pack, xs, es, eis, ys
