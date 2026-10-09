@@ -54,6 +54,7 @@ process/step_to_pyg.py      STEP files -> PyG graphs with UV-grid features and l
 process/make_toy_dataset.py tiny synthetic MFCAD++-style dataset for a quick smoke test
 datasets/fusion360.py       Fusion 360 Gallery segmentation: same graph format, 8 modeling-operation classes
 process/fusion360_to_pyg.py Fusion 360 Gallery s2.0.0 (labels in .seg files) -> PyG graphs + split.json
+kaggle/                     script kernels that preprocess and train on Fusion 360 Gallery on a Kaggle GPU
 train.py                    training / testing (accuracy, per-class IoU, TensorBoard, checkpoints, resume)
 docs/                       results and a write-up of how this port was built
 ```
@@ -181,6 +182,24 @@ python train.py test  --dataset fusion360 --data_dir data/fusion360_processed --
 
 The model and hyperparameters are the same as for MFCAD++; only the label set (8 classes instead of 25)
 and the label source differ.
+
+### On Kaggle
+
+The archive is 3.3 GB, so the full run is set up for Kaggle, which downloads it from Autodesk's bucket
+directly. Kaggle script kernels are single files, so `kaggle/build_kernels.py` embeds the project source in
+two of them:
+
+```bash
+python kaggle/build_kernels.py --user <kaggle username>      # add --smoke for a small 3-epoch check first
+kaggle kernels push -p kaggle/build/preprocess    # CPU: download, STEP -> graphs in a micromamba env, pack caches
+kaggle kernels push -p kaggle/build/train         # GPU (T4), once the first kernel has completed
+kaggle kernels output <user>/euclid-uvnet-fusion360-train -p results/kaggle_fusion360
+```
+
+The training kernel reads the first kernel's output, runs `train.py` unchanged, tests `best.pt` and
+`last.pt`, and keeps the whole run directory (checkpoints, `train.log`, `test_metrics_*.json`, TensorBoard)
+as its output. `--tag <name>` builds the pair under separate slugs, for a re-run that must not replace the
+output of the existing kernels.
 
 ## Why batch-shape bucketing on Apple GPUs?
 
