@@ -57,7 +57,7 @@ process/fusion360_to_pyg.py Fusion 360 Gallery s2.0.0 (labels in .seg files) -> 
 kaggle/                     script kernels that preprocess and train on Fusion 360 Gallery on a Kaggle GPU
 train.py                    training / testing (accuracy, per-class IoU, TensorBoard, checkpoints, resume)
 analysis/                   error analysis of trained runs: confusions, renders of wrong faces, topology probe
-docs/                       results and a write-up of how this port was built
+docs/                       results, confusion analysis, and a write-up of how this port was built
 ```
 
 ## Installation
@@ -225,6 +225,9 @@ This was a single run: Adam, lr 1e-3, batch 64, 100 epochs, no augmentation, on 
 classes are rectangular through slot (IoU 0.887), round (0.932) and blind hole (0.943). Full per-class
 numbers and the training curve are in [`docs/results.md`](docs/results.md). How the port was built, and the
 problems solved along the way, are in [`docs/summary.md`](docs/summary.md).
+
+What the model gets wrong, and why, is in [`docs/confusion-analysis.md`](docs/confusion-analysis.md): the
+confusion matrix, the most confused class pairs, and error rates on features cut by neighbouring features.
 
 Trained checkpoints are not included in this repository.
 
