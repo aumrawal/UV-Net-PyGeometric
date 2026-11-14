@@ -203,6 +203,7 @@ def main():
     model = UVNetSegmenter(NUM_CLASSES).to(device)
     num_params = sum(p.numel() for p in model.parameters())
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
+    scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda")
     print(f"device {device} | {len(train_set)} training parts | {num_params:,} parameters | budget {TIME_BUDGET}s")
 
     # The budget is wall clock from the first batch on, data loading included
@@ -214,13 +215,15 @@ def main():
         loss_sum, n = 0.0, 0
         for batch in loader:
             batch = batch.to(device)
-            loss = F.cross_entropy(model(batch), batch.y)
+            with torch.autocast("cuda", dtype=torch.float16, enabled=device.type == "cuda"):
+                loss = F.cross_entropy(model(batch).float(), batch.y)
             progress = min(train_time / TIME_BUDGET, 1.0)
             for g in optimizer.param_groups:
                 g["lr"] = LR * min(1.0, (step + 1) / WARMUP_STEPS) * 0.5 * (1 + math.cos(math.pi * progress))
             optimizer.zero_grad(set_to_none=True)
-            loss.backward()
-            optimizer.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
             loss_sum, n = loss_sum + loss.item(), n + 1   # .item() syncs with the GPU
             train_time = time.time() - t_train
             step += 1
