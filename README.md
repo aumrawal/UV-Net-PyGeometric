@@ -115,7 +115,8 @@ process/fusion360_to_pyg.py Fusion 360 Gallery s2.0.0 (labels in .seg files) -> 
 kaggle/                     script kernels that preprocess and train on Fusion 360 Gallery on a Kaggle GPU
 train.py                    training / testing (accuracy, per-class IoU, TensorBoard, checkpoints, resume)
 analysis/                   error analysis of trained runs: confusions, renders of wrong faces, topology probe
-docs/                       results and a write-up of how this port was built
+docs/                       results, a write-up of how this port was built, figures (docs/fig/)
+experiments/                run records: the full MFCAD++ run's setup, per-class results and notes
 ```
 
 ## Installation
@@ -322,8 +323,53 @@ published reference. Per-class IoU (%) on the test set:
 | **Mean** | **67.7** | **66.5** |
 
 The hard classes are the same in both: most errors confuse cut faces with extrude faces, and RevolveEnd is
-the rarest class. The scripts in [`analysis/`](analysis/) produce confusion matrices and renders of
-misclassified faces.
+the rarest class.
+
+#### Where the errors are: the confusion matrix
+
+![Fusion 360 confusion matrix](docs/fig/fusion360_confusion.png)
+
+Each row is a true class and shows where its faces went, in percent of that class (raw counts in
+[`docs/fig/fusion360_confusion.csv`](docs/fig/fusion360_confusion.csv)). Three patterns stand out:
+
+- **Cut is read as extrude.** 23% of CutSide faces are predicted ExtrudeSide, and 19% of CutEnd faces are
+  predicted ExtrudeEnd. The reverse is rare (4% and 2%). A cut and an extrude can leave faces of the same
+  shape; what tells them apart is whether material was removed, which shows up mostly in the convexity of the
+  edges around the face. UV-Net's edge grids hold points and tangents only, so it has to infer that angle. On
+  the best checkpoint, 5,910 of the 9,164 test errors are extrude/cut confusions, and only 4.8% of those sit
+  on faces whose geometric twin in the same part carries the other label, so most of this is not ambiguous
+  labelling.
+- **The model favours the frequent classes.** ExtrudeSide is half of all test faces (39,495 of 77,064). When
+  a face is unclear, the model leans that way: Fillet, Chamfer and RevolveSide each lose 6 to 8% of their
+  faces to it.
+- **RevolveEnd is barely learned.** It has 73 test faces and is recognised 22% of the time; 30% go to
+  ExtrudeEnd, another flat end face.
+
+Recall and precision per class (last checkpoint):
+
+| Class | Test faces | Recall (%) | Precision (%) |
+|---|---|---|---|
+| ExtrudeSide | 39,495 | 94.3 | 91.1 |
+| ExtrudeEnd | 12,223 | 94.1 | 91.3 |
+| CutSide | 9,799 | 70.8 | 79.5 |
+| CutEnd | 1,904 | 70.4 | 77.2 |
+| Fillet | 7,094 | 88.6 | 88.8 |
+| Chamfer | 2,181 | 87.8 | 89.6 |
+| RevolveSide | 4,295 | 80.1 | 88.8 |
+| RevolveEnd | 73 | 21.9 | 57.1 |
+
+To draw the matrix for your own run, save the test predictions with
+[`analysis/dump_logits.py`](analysis/dump_logits.py) and run:
+
+```bash
+python analysis/confusion_compare.py path/to/test_predictions.npz --key last \
+    --out confusion.png --csv confusion.csv
+```
+
+The `.npz` needs the true labels `y` and either `pred_<key>`, `prob_<key>` or `logits`. Add
+`--other run_b.npz --other_label "Run B"` (or a CSV of counts) to draw a second run next to the first, plus a
+panel with the difference. The script also prints recall, precision and the five largest confusions. The
+other scripts in [`analysis/`](analysis/) render the misclassified faces and compare runs.
 
 Trained checkpoints are not included in this repository.
 

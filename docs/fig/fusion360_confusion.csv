@@ -1,0 +1,9 @@
+true\pred,ExtrudeSide,ExtrudeEnd,CutSide,CutEnd,Fillet,Chamfer,RevolveSide,RevolveEnd
+ExtrudeSide,37242,264,1387,39,358,87,116,2
+ExtrudeEnd,308,11502,65,220,8,11,105,4
+CutSide,2255,163,6941,78,243,50,68,1
+CutEnd,72,369,86,1340,6,0,30,1
+Fillet,590,16,108,0,6288,14,78,0
+Chamfer,136,19,36,20,25,1915,30,0
+RevolveSide,253,241,103,34,157,61,3442,4
+RevolveEnd,12,22,10,4,0,0,9,16
