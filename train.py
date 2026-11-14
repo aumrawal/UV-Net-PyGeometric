@@ -159,16 +159,29 @@ class Classifier(nn.Module):
         return self.net(x)
 
 
+def edge_convexity(x, edge_index):
+    """Per directed edge: cos of the angle between the two faces' mean normals, and the convexity
+    signs (c_dst - c_src) . n_src and (c_src - c_dst) . n_dst on unit offsets (< 0: convex)."""
+    mask = x[:, 6:7]
+    w = mask.sum((-2, -1)).clamp(min=1e-6)
+    n = F.normalize((x[:, 3:6] * mask).sum((-2, -1)) / w, dim=1)
+    c = (x[:, 0:3] * mask).sum((-2, -1)) / w
+    src, dst = edge_index
+    off = F.normalize(c[dst] - c[src], dim=1)
+    return torch.stack([(n[src] * n[dst]).sum(1), (off * n[src]).sum(1), (-off * n[dst]).sum(1)], dim=1)
+
+
 class UVNetSegmenter(nn.Module):
     def __init__(self, num_classes, crv_dim=64, srf_dim=64, graph_dim=128):
         super().__init__()
+        self.edge_geo = nn.Sequential(nn.Linear(3, crv_dim), nn.LeakyReLU(), nn.Linear(crv_dim, crv_dim))
         self.curve_encoder = CurveEncoder(6, crv_dim)
         self.surface_encoder = SurfaceEncoder(7, srf_dim)
         self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim)
         self.seg = Classifier(graph_dim + srf_dim, num_classes)
 
     def forward(self, data):
-        he = self.curve_encoder(data.edge_attr)
+        he = self.curve_encoder(data.edge_attr) + self.edge_geo(edge_convexity(data.x, data.edge_index))
         h = self.surface_encoder(data.x)
         node_emb, graph_emb = self.graph_encoder(data.edge_index, h, he, data.batch)
         return self.seg(torch.cat((node_emb, graph_emb[data.batch]), dim=1))
