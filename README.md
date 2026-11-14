@@ -5,8 +5,26 @@ A re-implementation of [UV-Net](https://arxiv.org/abs/2006.10211) (Jayaraman et 
 [MFCAD++](https://pure.qub.ac.uk/en/datasets/mfcad-dataset-dataset-for-paper-hierarchical-cadnet-learning-from)
 dataset**. It runs on NVIDIA GPUs (CUDA), on Apple-silicon GPUs (MPS), and on CPU.
 
-On the MFCAD++ test set it reaches **99.00% per-face accuracy (0.968 mean IoU)**. The published UV-Net number
-is 99.49%. See [`docs/results.md`](docs/results.md).
+It also trains on **Fusion 360 Gallery segmentation**, with Kaggle kernels for a full GPU run.
+
+| Dataset | Task | Test per-face accuracy | Test mean IoU | Reference |
+|---|---|---|---|---|
+| MFCAD++ | 25 machining-feature classes | **99.00%** | **0.968** | UV-Net, published: 99.49% |
+| Fusion 360 Gallery (s2.0.0) | 8 modelling-operation classes | **89.13%** | **0.677** | UV-Net re-run in the BRT paper: 89.03% / 0.665 |
+
+Details in [Results](#results) and [`docs/results.md`](docs/results.md).
+
+```mermaid
+flowchart LR
+    A["STEP file<br/>(B-rep solid)"] --> B["occwl / pythonOCC<br/>read faces, edges, adjacency"]
+    B --> C["Face UV-grids<br/>10×10×7"]
+    B --> D["Edge U-grids<br/>10×6"]
+    B --> E["Face-adjacency graph"]
+    C --> F["UV-Net<br/>(PyTorch Geometric)"]
+    D --> F
+    E --> F
+    F --> G["One label per face<br/>(machining feature or<br/>modelling operation)"]
+```
 
 ## What the code does
 
@@ -30,10 +48,50 @@ point cloud.
    - A small **2D CNN** turns each face grid into a 64-d vector.
    - A **1D CNN** turns each edge grid into a 64-d vector.
 5. **Message passing.** A graph neural network passes information between neighbouring faces. It uses
-   edge-conditioned convolutions (`NNConv`), so the edge geometry shapes each message. Two layers produce
-   per-face embeddings, and max-pooling produces a global embedding of the part.
+   edge-conditioned convolutions (`NNConv`), so the edge geometry shapes each message, and the edge
+   features are updated from their two faces after every round. Two rounds produce 64-d per-face
+   embeddings. Each layer's face features are max-pooled over the part, projected to 128-d and summed,
+   which gives a global embedding of the part.
 6. **Classify each face.** Each face's embedding is joined with the global embedding, and an MLP predicts
-   one of the 25 classes. This is **face segmentation**: every face of the part gets its own label.
+   one of the 25 classes (8 for Fusion 360). This is **face segmentation**: every face of the part gets
+   its own label.
+
+### Model at a glance
+
+Shapes are per part: `N` faces, `E` directed edges (each B-rep edge gives two), `C` classes.
+
+```mermaid
+flowchart TB
+    subgraph IN["Inputs"]
+        X["Face grids<br/>N × 7 × 10 × 10<br/>xyz · normal · trim mask"]
+        Y["Edge grids<br/>E × 6 × 10<br/>xyz · tangent"]
+        G["edge_index<br/>2 × E"]
+    end
+    X --> S["Surface encoder<br/>2D CNN → N × 64"]
+    Y --> K["Curve encoder<br/>1D CNN → E × 64"]
+    S --> M1["Round 1<br/>NNConv on faces + edge update"]
+    K --> M1
+    G --> M1
+    M1 --> M2["Round 2<br/>NNConv on faces + edge update"]
+    M2 --> H["Face embeddings<br/>N × 64"]
+    S -. "max-pool + linear" .-> P["Part embedding<br/>1 × 128<br/>(sum over layers)"]
+    M1 -. "max-pool + linear" .-> P
+    M2 -. "max-pool + linear" .-> P
+    H --> CAT["Concatenate per face<br/>N × 192"]
+    P -- "broadcast to faces" --> CAT
+    CAT --> MLP["MLP 512 → 256 → C<br/>dropout 0.3"]
+    MLP --> O["Per-face logits<br/>N × C"]
+```
+
+One round of message passing updates every face `f` from its neighbours `N(f)`, then every edge from its two
+faces (Eqs. 1 and 2 of the paper):
+
+$$h_f^{(\ell+1)} = \sigma\Big(\mathrm{BN}\Big(\mathrm{MLP}\Big(\sum_{f' \in \mathcal{N}(f)} W\big(g_{ff'}^{(\ell)}\big)\,(1+\epsilon)\,h_{f'}^{(\ell)}\Big)\Big)\Big)$$
+
+$$g_{ff'}^{(\ell+1)} = \sigma\Big(\mathrm{BN}\Big(\mathrm{MLP}\big((1+\epsilon')\,g_{ff'}^{(\ell)} + P\,h_f^{(\ell+1)} + P\,h_{f'}^{(\ell+1)}\big)\Big)\Big)$$
+
+`W(·)` is a linear layer that turns each edge embedding into a 64 × 64 weight matrix (this is `NNConv`),
+`P` is a linear projection, `ε` and `ε'` are learned scalars, and `σ` is a leaky ReLU.
 
 The model has 1.37M parameters. The architecture and hyperparameters match the original UV-Net; only the
 graph library changes:
@@ -197,6 +255,15 @@ kaggle kernels push -p kaggle/build/train         # GPU (T4), once the first ker
 kaggle kernels output <user>/euclid-uvnet-fusion360-train -p results/kaggle_fusion360
 ```
 
+```mermaid
+flowchart LR
+    KL["Your machine<br/>kaggle/build_kernels.py"] -- "kaggle kernels push" --> KP
+    subgraph KAGGLE["Kaggle"]
+        KP["preprocess kernel (CPU)<br/>download s2.0.0 (3.3 GB)<br/>STEP → graphs, pack caches"] -- "kernel output" --> KT["train kernel (GPU, T4)<br/>train.py, 100 epochs<br/>test best.pt and last.pt"]
+    end
+    KT -- "kaggle kernels output" --> KR["results/kaggle_fusion360/<br/>checkpoints, train.log,<br/>test_metrics_*.json"]
+```
+
 The training kernel reads the first kernel's output, runs `train.py` unchanged, tests `best.pt` and
 `last.pt`, and keeps the whole run directory (checkpoints, `train.log`, `test_metrics_*.json`, TensorBoard)
 as its output. `--tag <name>` builds the pair under separate slugs, for a re-run that must not replace the
@@ -216,9 +283,12 @@ The padding is off by default on CUDA and CPU.
 
 ## Results
 
+### MFCAD++
+
 | | Test per-face accuracy | Test mean IoU |
 |---|---|---|
 | This repo (best validation checkpoint, epoch 51) | 99.00% | 0.968 |
+| This repo (final checkpoint, epoch 100) | 98.96% | 0.966 |
 | Published UV-Net on MFCAD++ (reported by BrepMFR) | 99.49% | – |
 
 This was a single run: Adam, lr 1e-3, batch 64, 100 epochs, no augmentation, on an Apple M4. The weakest
@@ -226,14 +296,43 @@ classes are rectangular through slot (IoU 0.887), round (0.932) and blind hole (
 numbers and the training curve are in [`docs/results.md`](docs/results.md). How the port was built, and the
 problems solved along the way, are in [`docs/summary.md`](docs/summary.md).
 
+### Fusion 360 Gallery segmentation
+
+Official test split: 5,360 parts, 77,064 faces. One run (seed 0) on a Kaggle T4, same recipe as MFCAD++.
+
+| | Test per-face accuracy | Test mean IoU |
+|---|---|---|
+| This repo, final checkpoint (epoch 100) | **89.13%** | **0.677** |
+| This repo, best validation-loss checkpoint (epoch 40) | 88.11% | 0.660 |
+| UV-Net, re-trained in the BRT paper (Zou & Zhu 2025, Table 3) | 89.03% | 0.665 |
+
+The UV-Net paper itself has no Fusion 360 segmentation table, so the BRT paper's re-run is the closest
+published reference. Per-class IoU (%) on the test set:
+
+| Class | This repo (last) | UV-Net, BRT re-run |
+|---|---|---|
+| ExtrudeSide | 86.4 | 84.9 |
+| ExtrudeEnd | 86.4 | 85.7 |
+| CutSide | 59.9 | 61.2 |
+| CutEnd | 58.3 | 56.8 |
+| Fillet | 79.7 | 79.0 |
+| Chamfer | 79.7 | 80.4 |
+| RevolveSide | 72.8 | 70.0 |
+| RevolveEnd | 18.8 | 13.7 |
+| **Mean** | **67.7** | **66.5** |
+
+The hard classes are the same in both: most errors confuse cut faces with extrude faces, and RevolveEnd is
+the rarest class. The scripts in [`analysis/`](analysis/) produce confusion matrices and renders of
+misclassified faces.
+
 Trained checkpoints are not included in this repository.
 
 ## Credits and citation
 
 This is a port of the official [UV-Net code](https://github.com/AutodeskAILab/UV-Net) (MIT, © Autodesk).
 Geometry sampling uses [occwl](https://github.com/AutodeskAILab/occwl) and
-[pythonocc-core](https://github.com/tpaviot/pythonocc-core). If you use this, please cite UV-Net and
-MFCAD++:
+[pythonocc-core](https://github.com/tpaviot/pythonocc-core). If you use this, please cite UV-Net and the
+dataset you train on (MFCAD++, or Fusion 360 Gallery via BRepNet, which introduced the segmentation set):
 
 ```bibtex
 @inproceedings{jayaraman2021uvnet,
@@ -249,6 +348,13 @@ MFCAD++:
   journal = {Computer-Aided Design},
   volume  = {147},
   year    = {2022}
+}
+@inproceedings{lambourne2021brepnet,
+  title     = {BRepNet: A Topological Message Passing System for Solid Models},
+  author    = {Lambourne, Joseph G. and Willis, Karl D.D. and Jayaraman, Pradeep Kumar and Sanghi, Aditya
+               and Meltzer, Peter and Shayani, Hooman},
+  booktitle = {CVPR},
+  year      = {2021}
 }
 ```
 
