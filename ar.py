@@ -42,12 +42,20 @@ def resolve(rev):
     return {"rev": full[:7], "train_py": git("show", f"{full}:train.py"), "subject": git("log", "-1", "--format=%s", full).strip()}
 
 
-def kaggle(*args, check=True):
-    p = subprocess.run(["kaggle", *args], capture_output=True, text=True)
-    out = "\n".join(l for l in (p.stdout + p.stderr).splitlines() if "outdated" not in l)
-    if check and p.returncode != 0:
-        sys.exit(f"kaggle {' '.join(args)} failed:\n{out}")
-    return out
+def kaggle(*args, check=True, timeout=120, tries=1):
+    """Run the kaggle CLI; retried (with a timeout per try) because Kaggle's file server drops connections."""
+    for attempt in range(1, tries + 1):
+        try:
+            p = subprocess.run(["kaggle", *args], capture_output=True, text=True, timeout=timeout)
+            out = "\n".join(l for l in (p.stdout + p.stderr).splitlines() if "outdated" not in l)
+            ok = p.returncode == 0 and "failed" not in out.lower() and "error" not in out.lower()[:200]
+        except subprocess.TimeoutExpired:
+            ok, out = False, f"timed out after {timeout}s"
+        if ok or not check:
+            return out
+        print(f"  kaggle {args[0]} {args[1]}: attempt {attempt}/{tries} failed: {out.strip()[-200:]}", flush=True)
+        time.sleep(20)
+    sys.exit(f"kaggle {' '.join(args)} failed {tries} times")
 
 
 def kernel_status():
@@ -88,7 +96,8 @@ def worker(gpu):
         (d / "prepare.py").write_text(P["prepare_py"])
         (d / "train.py").write_text(exp["train_py"])
         env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(gpu), AR_TIME_BUDGET=str(P["budget"]),
-                   AR_RESULT_PATH=str(d / "result.json"), AR_SEED=str(exp["seed"]), PYTHONUNBUFFERED="1")
+                   AR_RESULT_PATH=str(d / "result.json"), AR_SEED=str(exp["seed"]), PYTHONUNBUFFERED="1",
+                   PYTHONDONTWRITEBYTECODE="1")
         t = time.time()
         print(f"[{t - T0:6.0f}s] gpu{gpu} start {exp['id']}", flush=True)
         with open(d / "run.log", "w") as log:
@@ -114,7 +123,13 @@ for t in threads:
     t.start()
 for t in threads:
     t.join()
-(OUT / "summary.json").write_text(json.dumps({"batch": P["batch"], "gpus": gpus, "results": results}, indent=1))
+for d in OUT.iterdir():
+    if d.is_dir():
+        (d / "prepare.py").unlink(missing_ok=True)   # identical in every run; the runner has it
+W = OUT.parent
+(W / "summary.json").write_text(json.dumps({"batch": P["batch"], "gpus": gpus, "results": results}, indent=1))
+# Two output files instead of dozens: Kaggle's file server drops connections on many small downloads
+subprocess.run(f"tar -czf {W}/results.tar.gz -C {W} results && rm -rf {OUT}", shell=True, check=True)
 print(f"Batch {P['batch']} done in {(time.time() - T0) / 60:.1f} min")
 '''
 
@@ -166,7 +181,9 @@ def wait_and_fetch(batch):
 
 def fetch(batch):
     dest = RUNS / batch / "output"
-    kaggle("kernels", "output", CONFIG["kernel"], "-p", str(dest), "-o")
+    kaggle("kernels", "output", CONFIG["kernel"], "-p", str(dest), "-o", timeout=300, tries=6)
+    for tar in dest.rglob("results.tar.gz"):
+        subprocess.run(["tar", "-xzf", str(tar), "-C", str(tar.parent)], check=True)
     found = list(dest.rglob("summary.json"))
     if not found:
         log = list(dest.rglob("*.log"))
