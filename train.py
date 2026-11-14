@@ -8,6 +8,7 @@ Trains for TIME_BUDGET seconds of wall clock, then scores with prepare.evaluate.
 
     python train.py
 """
+import math
 import os
 import time
 
@@ -24,7 +25,8 @@ from prepare import TIME_BUDGET, NUM_CLASSES, make_train_dataset, evaluate
 # ---------------------------------------------------------------------------------------------
 SEED = int(os.environ.get("AR_SEED", 0))   # set by the runner (ar.py --seeds)
 BATCH_SIZE = 64
-LR = 1e-3
+LR = 2e-3          # peak; warmup then cosine decay to 0 over the time budget
+WARMUP_STEPS = 200
 RANDOM_ROTATE = False
 NUM_WORKERS = 0
 
@@ -213,6 +215,9 @@ def main():
         for batch in loader:
             batch = batch.to(device)
             loss = F.cross_entropy(model(batch), batch.y)
+            progress = min(train_time / TIME_BUDGET, 1.0)
+            for g in optimizer.param_groups:
+                g["lr"] = LR * min(1.0, (step + 1) / WARMUP_STEPS) * 0.5 * (1 + math.cos(math.pi * progress))
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
             optimizer.step()
