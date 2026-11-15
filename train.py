@@ -117,7 +117,7 @@ class NodeConv(nn.Module):
         self.gconv = NNConv(node_feats, out_feats, nn=nn.Linear(edge_feats, node_feats * out_feats),
                             aggr="add", root_weight=False, bias=False)
         self.bn = nn.BatchNorm1d(out_feats)
-        self.mlp = MLP(2, node_feats, hidden, out_feats)
+        self.mlp = MLP(2, out_feats, hidden, out_feats)
         self.eps = nn.Parameter(torch.zeros(1))
 
     def forward(self, edge_index, h, he):
@@ -133,7 +133,7 @@ class GraphEncoder(nn.Module):
         for i in range(num_layers - 1):
             nf, ef = (din, dedge) if i == 0 else (hidden, hidden)
             self.node_convs.append(NodeConv(nf, hidden, ef, hidden))
-            self.edge_convs.append(EdgeConv(ef, hidden, nf, hidden))
+            self.edge_convs.append(EdgeConv(ef, hidden, hidden, hidden))  # its node input is the node conv's output
         self.readouts = nn.ModuleList(nn.Linear(din if i == 0 else hidden, dgraph) for i in range(num_layers))
         self.drop1, self.drop = nn.Dropout(0.3), nn.Dropout(0.5)
 
@@ -179,8 +179,8 @@ class UVNetSegmenter(nn.Module):
         self.edge_geo = nn.Sequential(nn.Linear(3, crv_dim), nn.LeakyReLU(), nn.Linear(crv_dim, crv_dim))
         self.curve_encoder = CurveEncoder(6, crv_dim)
         self.surface_encoder = SurfaceEncoder(7, srf_dim)
-        self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim)
-        self.seg = Classifier(graph_dim + srf_dim, num_classes)
+        self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim, hidden=128)
+        self.seg = Classifier(graph_dim + 128, num_classes)
 
     def forward(self, data):
         he = self.curve_encoder(data.edge_attr) + self.edge_geo(edge_convexity(data.x, data.edge_index))
