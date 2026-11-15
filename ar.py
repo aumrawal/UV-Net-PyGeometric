@@ -80,6 +80,11 @@ subprocess.run("pip install -q " + P["pip"], shell=True, check=True)
 gpus = subprocess.run("nvidia-smi --query-gpu=name,memory.total --format=csv,noheader", shell=True,
                       capture_output=True, text=True).stdout.strip().splitlines()
 print("GPUs:", gpus, flush=True)
+# Read the packed caches once so every run starts with them in the page cache. Without this the
+# first runs spend ~200 s of their budget paging the 3.5 GB train split in from /kaggle/input.
+t = time.time()
+subprocess.run("find /kaggle/input -path '*fusion360_processed/cache/*.pt' -exec cat {} + > /dev/null", shell=True)
+print(f"cache warmed in {time.time() - t:.0f}s", flush=True)
 jobs = queue.Queue()
 for exp in P["experiments"]:
     jobs.put(exp)
