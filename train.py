@@ -173,17 +173,42 @@ def edge_convexity(x, edge_index):
     return torch.stack([(n[src] * n[dst]).sum(1), (off * n[src]).sum(1), (-off * n[dst]).sum(1)], dim=1)
 
 
+def edge_local_convexity(x, edge_attr, edge_index):
+    """Convexity at the edge itself, for curved faces too: the normals of the two faces at their grid
+    points nearest the edge midpoint, their cosine, and the sign of each face's centroid offset
+    from the midpoint along the other face's local normal (< 0: convex)."""
+    mid = edge_attr[:, 0:3, edge_attr.size(2) // 2]                       # E x 3
+    pts = x[:, 0:3].flatten(2)                                            # F x 3 x UV
+    nrm = x[:, 3:6].flatten(2)
+    mask = x[:, 6].flatten(1) > 0.5                                       # F x UV
+    w = x[:, 6:7].sum((-2, -1)).clamp(min=1e-6)
+    cen = (x[:, 0:3] * x[:, 6:7]).sum((-2, -1)) / w                       # F x 3
+    src, dst = edge_index
+
+    def nearest_normal(f):
+        d = (pts[f] - mid.unsqueeze(-1)).square().sum(1)                  # E x UV
+        d = d.masked_fill(~mask[f], float("inf"))
+        idx = d.argmin(1)
+        return F.normalize(nrm[f].gather(2, idx.view(-1, 1, 1).expand(-1, 3, 1)).squeeze(-1), dim=1)
+
+    ns, nd = nearest_normal(src), nearest_normal(dst)
+    od = F.normalize(cen[dst] - mid, dim=1)
+    os_ = F.normalize(cen[src] - mid, dim=1)
+    return torch.stack([(ns * nd).sum(1), (od * ns).sum(1), (os_ * nd).sum(1)], dim=1)
+
+
 class UVNetSegmenter(nn.Module):
     def __init__(self, num_classes, crv_dim=64, srf_dim=64, graph_dim=128):
         super().__init__()
-        self.edge_geo = nn.Sequential(nn.Linear(3, crv_dim), nn.LeakyReLU(), nn.Linear(crv_dim, crv_dim))
+        self.edge_geo = nn.Sequential(nn.Linear(6, crv_dim), nn.LeakyReLU(), nn.Linear(crv_dim, crv_dim))
         self.curve_encoder = CurveEncoder(6, crv_dim)
         self.surface_encoder = SurfaceEncoder(7, srf_dim)
         self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim, hidden=128)
         self.seg = Classifier(graph_dim + 128, num_classes)
 
     def forward(self, data):
-        he = self.curve_encoder(data.edge_attr) + self.edge_geo(edge_convexity(data.x, data.edge_index))
+        he = self.curve_encoder(data.edge_attr) + self.edge_geo(torch.cat([edge_convexity(data.x, data.edge_index),
+            edge_local_convexity(data.x, data.edge_attr, data.edge_index)], 1))
         h = self.surface_encoder(data.x)
         node_emb, graph_emb = self.graph_encoder(data.edge_index, h, he, data.batch)
         return self.seg(torch.cat((node_emb, graph_emb[data.batch]), dim=1))
