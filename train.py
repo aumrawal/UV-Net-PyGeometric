@@ -115,7 +115,7 @@ class NodeConv(nn.Module):
     def __init__(self, node_feats, out_feats, edge_feats, hidden=64):
         super().__init__()
         self.gconv = NNConv(node_feats, out_feats, nn=nn.Linear(edge_feats, node_feats * out_feats),
-                            aggr="add", root_weight=True, bias=False)
+                            aggr="mean", root_weight=True, bias=False)
         self.bn = nn.BatchNorm1d(out_feats)
         self.mlp = MLP(2, out_feats, hidden, out_feats)
         self.eps = nn.Parameter(torch.zeros(1))
