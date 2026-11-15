@@ -26,7 +26,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 CONFIG = json.loads((ROOT / "ar_config.json").read_text())
 RUNS = ROOT / "runs"
 RESULTS = ROOT / "results.tsv"
-HEADER = "commit\tseed\tval_miou\tval_acc\tmemory_gb\tepochs\tstatus\tdescription\tbatch\n"
+HEADER = "commit\tseed\tval_miou\tval_miou8\tval_acc\tmemory_gb\tepochs\tstatus\tdescription\tbatch\n"
 
 
 def git(*args):
@@ -213,16 +213,16 @@ def record(batch, summary):
     for r in sorted(summary["results"], key=lambda r: r["id"]):
         mem, epochs = _mem_epochs(r)
         status = "?" if r["status"] == "ok" else r["status"]
-        rows.append(f"{r['rev']}\t{r['seed']}\t{r.get('val_miou', 0):.6f}\t{r.get('val_acc', 0):.6f}\t{mem}\t{epochs}\t"
+        rows.append(f"{r['rev']}\t{r['seed']}\t{r.get('val_miou', 0):.6f}\t{r.get('val_miou8', 0):.6f}\t{r.get('val_acc', 0):.6f}\t{mem}\t{epochs}\t"
                     f"{status}\t{meta.get(r['rev'], '')}\t{batch}\n")
     if f"\t{batch}\n" not in RESULTS.read_text():   # a re-fetch must not log the batch twice
         with open(RESULTS, "a") as f:
             f.writelines(rows)
     print(f"\nGPUs: {summary['gpus']}")
-    print(f"{'run':14s} {'status':8s} {'val_miou':>9s} {'val_acc':>8s} {'mem_gb':>6s} {'epochs':>6s}  description")
+    print(f"{'run':14s} {'status':8s} {'val_miou':>9s} {'miou8':>7s} {'val_acc':>8s} {'mem_gb':>6s} {'epochs':>6s}  description")
     for r in sorted(summary["results"], key=lambda r: -r.get("val_miou", -1)):
         mem, epochs = _mem_epochs(r)
-        print(f"{r['id']:14s} {r['status']:8s} {r.get('val_miou', 0):9.4f} {r.get('val_acc', 0):8.4f} {mem:>6s} "
+        print(f"{r['id']:14s} {r['status']:8s} {r.get('val_miou', 0):9.4f} {r.get('val_miou8', 0):7.4f} {r.get('val_acc', 0):8.4f} {mem:>6s} "
               f"{epochs:>6s}  {meta.get(r['rev'], '')}")
         if r["status"] != "ok":
             print("    last log lines:\n      " + "\n      ".join(r["log_tail"][-15:]))
@@ -251,8 +251,8 @@ def cmd_mark(args):
     hits = 0
     for i, l in enumerate(lines):
         cols = l.split("\t")
-        if cols[0] == args.rev[:7] and cols[6] == "?":
-            cols[6] = args.decision
+        if cols[0] == args.rev[:7] and cols[7] == "?":
+            cols[7] = args.decision
             lines[i] = "\t".join(cols)
             hits += 1
     RESULTS.write_text("".join(lines))

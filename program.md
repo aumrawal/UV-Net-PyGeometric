@@ -45,8 +45,11 @@ weights, focal, label smoothing), optimizer, LR schedule, batch size, augmentati
   after training (no checkpoint selection on val: it would tune to the val split for free);
 - touch the test split (it is not reachable from `prepare.py`, keep it that way).
 
-**Metric**: `val_miou` (mean IoU over the 8 classes on the full validation split), **higher is
-better**. Reported by `prepare.evaluate`, which the runner reads directly.
+**Metric**: `val_miou`, mean IoU on the full validation split over the 7 classes other than
+RevolveEnd, **higher is better**. Reported by `prepare.evaluate`, which the runner reads directly.
+RevolveEnd has a handful of val faces and its IoU swings 0.06-0.27 between seeds of identical code,
+so it is left out of the score (it is still trained on). `val_miou8`, the mean over all 8 classes,
+is logged too: watch it and RevolveEnd's IoU, but don't keep or discard on them.
 
 **Budget**: training is cut after `TIME_BUDGET` = 600 s of wall clock from the first batch, data
 loading included. A run that does not finish within budget + 15 min (startup + eval) is killed.
@@ -56,7 +59,7 @@ precision means `torch.autocast("cuda", dtype=torch.float16)` + `torch.amp.GradS
 batches change shape every step, so `torch.compile` usually hurts. The machine has 4 CPU cores and
 runs two experiments side by side, so don't count on more than 1 to 2 data-loader workers.
 
-**Noise**: the same code with a different seed moves val mIoU. The first batch measures that spread.
+**Noise**: the same code with a different seed moves val mIoU, by about 0.01 on the 7-class score.
 Only call something an improvement if it beats the current best by clearly more than that spread;
 for close calls, re-run it with more seeds (`--seeds 0,1`).
 

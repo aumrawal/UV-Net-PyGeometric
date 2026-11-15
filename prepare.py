@@ -43,6 +43,9 @@ TIME_BUDGET = int(os.environ.get("AR_TIME_BUDGET", 600))   # training wall clock
 EVAL_BATCH_SIZE = 64
 CLASS_NAMES = ["ExtrudeSide", "ExtrudeEnd", "CutSide", "CutEnd", "Fillet", "Chamfer", "RevolveSide", "RevolveEnd"]
 NUM_CLASSES = len(CLASS_NAMES)
+# Left out of the headline score: a handful of val faces, so its IoU swings 0.06-0.27 between seeds of
+# identical code and drowns real differences. It is still trained on and still reported.
+SCORE_EXCLUDE = ["RevolveEnd"]
 
 
 def data_dir():
@@ -116,7 +119,8 @@ _VAL = None
 @torch.no_grad()
 def evaluate(model, device):
     """
-    Per-face mean IoU over the 8 classes on the full validation split (higher is better).
+    Per-face mean IoU on the full validation split (higher is better). `val_miou`, the score, is the mean
+    over the classes present except SCORE_EXCLUDE (7 classes); `val_miou8` is the mean over all 8.
 
     `model(batch)` must return per-face logits of shape (num_faces, NUM_CLASSES) for a PyG Batch.
     The model is put in eval mode. The last call's result is the experiment's score; it is also
@@ -142,8 +146,10 @@ def evaluate(model, device):
     support, predicted = mat.sum(1).float(), mat.sum(0).float()
     iou = tp / (support + predicted - tp).clamp(min=1)
     present = support > 0
+    scored = present & torch.tensor([c not in SCORE_EXCLUDE for c in CLASS_NAMES])
     result = {
-        "val_miou": iou[present].mean().item(),
+        "val_miou": iou[scored].mean().item(),
+        "val_miou8": iou[present].mean().item(),
         "val_acc": (tp.sum() / mat.sum().clamp(min=1)).item(),
         "val_loss": total_loss / max(total_faces, 1),
         "per_class_iou": dict(zip(CLASS_NAMES, iou.tolist())),

@@ -262,6 +262,7 @@ def main():
     peak_mb = torch.cuda.max_memory_allocated() / 2**20 if device.type == "cuda" else 0.0
     print("---")
     print(f"val_miou:         {result['val_miou']:.6f}")
+    print(f"val_miou8:        {result['val_miou8']:.6f}")
     print(f"val_acc:          {result['val_acc']:.6f}")
     print(f"val_loss:         {result['val_loss']:.6f}")
     print(f"training_seconds: {train_time:.1f}")
