@@ -211,8 +211,8 @@ class UVNetSegmenter(nn.Module):
     def forward(self, data):
         ce = data.edge_attr[:, :3].mean(-1)
         ec = data.edge_attr[:, :3] - ce[:, :, None]
-        re = ec.pow(2).sum(1).mean(-1, keepdim=True).sqrt().clamp(min=1e-4)
-        e = torch.cat([ec / re[:, :, None], data.edge_attr[:, 3:]], 1)
+        re = ec.pow(2).sum(1).mean(-1, keepdim=True).sqrt().clamp(min=0.02)
+        e = torch.cat([(ec / re[:, :, None]).clamp(-5, 5), data.edge_attr[:, 3:]], 1)
         he = self.curve_encoder(e) + self.edge_pos(torch.cat([ce, re.log()], 1)) + self.edge_geo(torch.cat([edge_convexity(data.x, data.edge_index),
             edge_local_convexity(data.x, data.edge_attr, data.edge_index)], 1))
         # CNNs see each face's shape around its own centroid, so the same feature looks the same anywhere
@@ -220,8 +220,8 @@ class UVNetSegmenter(nn.Module):
         w = mask.sum((-2, -1)).clamp(min=1e-6)
         c = (data.x[:, :3] * mask).sum((-2, -1)) / w
         xc = data.x[:, :3] - c[:, :, None, None]
-        r = ((xc.pow(2).sum(1, keepdim=True) * mask).sum((-2, -1)) / w).sqrt().clamp(min=1e-4)   # RMS radius
-        x = torch.cat([xc / r[:, :, None, None], data.x[:, 3:]], 1)
+        r = ((xc.pow(2).sum(1, keepdim=True) * mask).sum((-2, -1)) / w).sqrt().clamp(min=0.02)   # RMS radius
+        x = torch.cat([(xc / r[:, :, None, None]).clamp(-5, 5), data.x[:, 3:]], 1)
         h = self.surface_encoder(x) + self.face_pos(torch.cat([c, r.log()], 1))
         node_emb, graph_emb = self.graph_encoder(data.edge_index, h, he, data.batch)
         return self.seg(torch.cat((node_emb, graph_emb[data.batch]), dim=1))
