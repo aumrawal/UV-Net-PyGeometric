@@ -203,13 +203,21 @@ class UVNetSegmenter(nn.Module):
         self.edge_geo = nn.Sequential(nn.Linear(6, crv_dim), nn.LeakyReLU(), nn.Linear(crv_dim, crv_dim))
         self.curve_encoder = CurveEncoder(6, crv_dim)
         self.surface_encoder = SurfaceEncoder(7, srf_dim)
+        self.face_pos = nn.Linear(3, srf_dim)   # the face centroid, taken out of the grid the CNN sees
+        self.edge_pos = nn.Linear(3, crv_dim)
         self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim, hidden=128)
         self.seg = Classifier(graph_dim + 128, num_classes)
 
     def forward(self, data):
-        he = self.curve_encoder(data.edge_attr) + self.edge_geo(torch.cat([edge_convexity(data.x, data.edge_index),
+        ce = data.edge_attr[:, :3].mean(-1)
+        e = torch.cat([data.edge_attr[:, :3] - ce[:, :, None], data.edge_attr[:, 3:]], 1)
+        he = self.curve_encoder(e) + self.edge_pos(ce) + self.edge_geo(torch.cat([edge_convexity(data.x, data.edge_index),
             edge_local_convexity(data.x, data.edge_attr, data.edge_index)], 1))
-        h = self.surface_encoder(data.x)
+        # CNNs see each face's shape around its own centroid, so the same feature looks the same anywhere
+        mask = data.x[:, 6:7]
+        c = (data.x[:, :3] * mask).sum((-2, -1)) / mask.sum((-2, -1)).clamp(min=1e-6)
+        x = torch.cat([data.x[:, :3] - c[:, :, None, None], data.x[:, 3:]], 1)
+        h = self.surface_encoder(x) + self.face_pos(c)
         node_emb, graph_emb = self.graph_encoder(data.edge_index, h, he, data.batch)
         return self.seg(torch.cat((node_emb, graph_emb[data.batch]), dim=1))
 
