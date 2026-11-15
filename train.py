@@ -203,21 +203,26 @@ class UVNetSegmenter(nn.Module):
         self.edge_geo = nn.Sequential(nn.Linear(6, crv_dim), nn.LeakyReLU(), nn.Linear(crv_dim, crv_dim))
         self.curve_encoder = CurveEncoder(6, crv_dim)
         self.surface_encoder = SurfaceEncoder(7, srf_dim)
-        self.face_pos = nn.Linear(3, srf_dim)   # the face centroid, taken out of the grid the CNN sees
-        self.edge_pos = nn.Linear(3, crv_dim)
+        self.face_pos = nn.Linear(4, srf_dim)   # the face centroid and log size, taken out of the grid the CNN sees
+        self.edge_pos = nn.Linear(4, crv_dim)
         self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim, hidden=128)
         self.seg = Classifier(graph_dim + 128, num_classes)
 
     def forward(self, data):
         ce = data.edge_attr[:, :3].mean(-1)
-        e = torch.cat([data.edge_attr[:, :3] - ce[:, :, None], data.edge_attr[:, 3:]], 1)
-        he = self.curve_encoder(e) + self.edge_pos(ce) + self.edge_geo(torch.cat([edge_convexity(data.x, data.edge_index),
+        ec = data.edge_attr[:, :3] - ce[:, :, None]
+        re = ec.pow(2).sum(1).mean(-1, keepdim=True).sqrt().clamp(min=1e-4)
+        e = torch.cat([ec / re[:, :, None], data.edge_attr[:, 3:]], 1)
+        he = self.curve_encoder(e) + self.edge_pos(torch.cat([ce, re.log()], 1)) + self.edge_geo(torch.cat([edge_convexity(data.x, data.edge_index),
             edge_local_convexity(data.x, data.edge_attr, data.edge_index)], 1))
         # CNNs see each face's shape around its own centroid, so the same feature looks the same anywhere
         mask = data.x[:, 6:7]
-        c = (data.x[:, :3] * mask).sum((-2, -1)) / mask.sum((-2, -1)).clamp(min=1e-6)
-        x = torch.cat([data.x[:, :3] - c[:, :, None, None], data.x[:, 3:]], 1)
-        h = self.surface_encoder(x) + self.face_pos(c)
+        w = mask.sum((-2, -1)).clamp(min=1e-6)
+        c = (data.x[:, :3] * mask).sum((-2, -1)) / w
+        xc = data.x[:, :3] - c[:, :, None, None]
+        r = ((xc.pow(2).sum(1, keepdim=True) * mask).sum((-2, -1)) / w).sqrt().clamp(min=1e-4)   # RMS radius
+        x = torch.cat([xc / r[:, :, None, None], data.x[:, 3:]], 1)
+        h = self.surface_encoder(x) + self.face_pos(torch.cat([c, r.log()], 1))
         node_emb, graph_emb = self.graph_encoder(data.edge_index, h, he, data.batch)
         return self.seg(torch.cat((node_emb, graph_emb[data.batch]), dim=1))
 
