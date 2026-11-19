@@ -1,0 +1,84 @@
+batch 1114-222115: 2 runs x 600s on NvidiaTeslaT4
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] QUEUED
+  [  1.0 min] QUEUED
+  [  2.1 min] QUEUED
+  [  3.1 min] QUEUED
+  [  4.2 min] QUEUED
+  [  5.2 min] QUEUED
+  [  6.2 min] QUEUED
+  [  7.2 min] QUEUED
+  [  8.3 min] QUEUED
+  [  9.3 min] QUEUED
+  [ 10.3 min] QUEUED
+  [ 11.4 min] QUEUED
+  [ 12.4 min] QUEUED
+  [ 13.4 min] QUEUED
+  [ 14.5 min] QUEUED
+  [ 15.5 min] QUEUED
+  [ 16.6 min] QUEUED
+  [ 17.7 min] QUEUED
+  [ 18.7 min] QUEUED
+  [ 19.7 min] QUEUED
+  [ 20.8 min] QUEUED
+  [ 21.8 min] QUEUED
+  [ 22.8 min] QUEUED
+  [ 23.9 min] QUEUED
+  [ 24.9 min] QUEUED
+  [ 25.9 min] QUEUED
+  [ 26.9 min] QUEUED
+  [ 28.0 min] QUEUED
+  [ 29.0 min] QUEUED
+  [ 30.0 min] QUEUED
+  [ 31.1 min] QUEUED
+  [ 32.1 min] QUEUED
+  [ 33.2 min] QUEUED
+  [ 34.2 min] QUEUED
+  [ 35.2 min] QUEUED
+  [ 36.3 min] QUEUED
+  [ 37.3 min] QUEUED
+  [ 38.4 min] QUEUED
+  [ 39.5 min] QUEUED
+  [ 40.5 min] QUEUED
+  [ 41.5 min] QUEUED
+  [ 42.6 min] QUEUED
+  [ 43.7 min] QUEUED
+  [ 44.7 min] QUEUED
+  [ 45.7 min] QUEUED
+  [ 46.8 min] QUEUED
+  [ 47.9 min] QUEUED
+  [ 48.9 min] QUEUED
+  [ 49.9 min] QUEUED
+  [ 51.0 min] QUEUED
+  [ 52.0 min] QUEUED
+  [ 53.0 min] QUEUED
+  [ 54.1 min] QUEUED
+  [ 55.1 min] QUEUED
+  [ 56.1 min] QUEUED
+  [ 57.2 min] QUEUED
+  [ 58.2 min] QUEUED
+  [ 59.2 min] QUEUED
+  [ 60.3 min] QUEUED
+  [ 61.3 min] QUEUED
+  [ 62.3 min] QUEUED
+  [ 63.4 min] QUEUED
+  [ 64.4 min] QUEUED
+  [ 65.4 min] QUEUED
+  [ 66.5 min] QUEUED
+  [ 67.5 min] QUEUED
+  [ 68.5 min] QUEUED
+  [ 69.6 min] QUEUED
+  [ 70.6 min] QUEUED
+  [ 71.7 min] QUEUED
+  [ 72.7 min] QUEUED
+  [ 73.7 min] QUEUED
+  [ 74.7 min] QUEUED
+  [ 75.8 min] QUEUED
+  [ 76.8 min] QUEUED
+  [ 77.8 min] QUEUED
+  [ 78.9 min] QUEUED
+  [114.7 min] QUEUED
+  [154.2 min] QUEUED
+kernel finished: COMPLETE
+kaggle kernels output aumr1101/uvnet-ar-experiments -p /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1114-222115/output -o failed:
+HTTPSConnectionPool(host='www.kaggleusercontent.com', port=443): Read timed out. (read timeout=None)

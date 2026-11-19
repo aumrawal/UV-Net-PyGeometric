@@ -1,0 +1,8 @@
+{
+ "kernel": "aumr1101/uvnet-ar-experiments",
+ "data_kernel": "aumr1101/uvnet-ar-fusion360-preprocess",
+ "machine_shape": "NvidiaTeslaT4",
+ "budget_seconds": 600,
+ "overhead_seconds": 900,
+ "pip": "torch_geometric==2.8.0.post1"
+}

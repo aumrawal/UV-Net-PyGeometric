@@ -1,0 +1,34 @@
+{
+ "batch": "1115-080232",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "3297c08",
+   "subject": "Runner: warm the data cache before the runs start, so all runs get the same budget",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "e6e0f35",
+   "subject": "Label smoothing 0.1 (on AMP), retest with warm cache",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "bdfffe3",
+   "subject": "3 rounds of message passing (on AMP), retest with warm cache",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "1f92b1a",
+   "subject": "Batch 128 with peak LR 3e-3 (on AMP)",
+   "seeds": [
+    0
+   ]
+  }
+ ]
+}

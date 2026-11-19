@@ -1,0 +1,49 @@
+device cuda | 24215 training parts | 1,368,972 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    189 | train loss 1.5256 | train time     23s
+epoch   2 | step    378 | train loss 0.8412 | train time     45s
+epoch   3 | step    567 | train loss 0.6705 | train time     67s
+epoch   4 | step    756 | train loss 0.5906 | train time     89s
+epoch   5 | step    945 | train loss 0.5359 | train time    111s
+epoch   6 | step   1134 | train loss 0.5015 | train time    133s
+epoch   7 | step   1323 | train loss 0.4834 | train time    155s
+epoch   8 | step   1512 | train loss 0.4527 | train time    176s
+epoch   9 | step   1701 | train loss 0.4336 | train time    198s
+epoch  10 | step   1890 | train loss 0.4157 | train time    219s
+epoch  11 | step   2079 | train loss 0.4041 | train time    241s
+epoch  12 | step   2268 | train loss 0.3827 | train time    262s
+epoch  13 | step   2457 | train loss 0.3605 | train time    284s
+epoch  14 | step   2646 | train loss 0.3505 | train time    305s
+epoch  15 | step   2835 | train loss 0.3388 | train time    326s
+epoch  16 | step   3024 | train loss 0.3246 | train time    348s
+epoch  17 | step   3213 | train loss 0.3158 | train time    369s
+epoch  18 | step   3402 | train loss 0.2911 | train time    391s
+epoch  19 | step   3591 | train loss 0.2765 | train time    412s
+epoch  20 | step   3780 | train loss 0.2630 | train time    433s
+epoch  21 | step   3969 | train loss 0.2503 | train time    455s
+epoch  22 | step   4158 | train loss 0.2422 | train time    476s
+epoch  23 | step   4347 | train loss 0.2290 | train time    497s
+epoch  24 | step   4536 | train loss 0.2226 | train time    518s
+epoch  25 | step   4725 | train loss 0.2165 | train time    540s
+epoch  26 | step   4914 | train loss 0.2128 | train time    561s
+epoch  27 | step   5103 | train loss 0.2095 | train time    582s
+epoch  28 | step   5263 | train loss 0.2078 | train time    600s
+---
+val_miou:         0.649731
+val_acc:          0.888349
+val_loss:         0.490568
+training_seconds: 600.0
+total_seconds:    605.2
+peak_vram_mb:     1281.0
+num_epochs:       28
+num_steps:        5263
+num_params_M:     1.37
+iou_ExtrudeSide: 0.8591
+iou_ExtrudeEnd: 0.8520
+iou_CutSide: 0.5986
+iou_CutEnd: 0.5587
+iou_Fillet: 0.7923
+iou_Chamfer: 0.7832
+iou_RevolveSide: 0.6977
+iou_RevolveEnd: 0.0563

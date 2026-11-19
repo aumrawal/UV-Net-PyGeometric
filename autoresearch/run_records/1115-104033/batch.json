@@ -1,0 +1,22 @@
+{
+ "batch": "1115-104033",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "3ccc6b5",
+   "subject": "Local convexity at the edge midpoint (nearest-grid-point normals) added to the edge features",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "68dd24c",
+   "subject": "Face size input: log area + bounding-box extent (face_attr) added to the face embedding",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

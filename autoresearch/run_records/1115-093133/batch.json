@@ -1,0 +1,22 @@
+{
+ "batch": "1115-093133",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "3297c08",
+   "subject": "Runner: warm the data cache before the runs start, so all runs get the same budget",
+   "seeds": [
+    2,
+    3
+   ]
+  },
+  {
+   "rev": "ed0dc7b",
+   "subject": "Message-passing hidden size 128 instead of 64",
+   "seeds": [
+    2,
+    3
+   ]
+  }
+ ]
+}

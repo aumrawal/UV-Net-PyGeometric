@@ -1,0 +1,22 @@
+{
+ "batch": "1116-035651",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "067e881",
+   "subject": "Surface CNN pools only over grid points inside the trim mask (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "d6c9871",
+   "subject": "cudnn.benchmark on (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

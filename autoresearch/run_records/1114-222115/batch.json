@@ -1,0 +1,14 @@
+{
+ "batch": "1114-222115",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "3f5c54a",
+   "subject": "UV-Net autoresearch harness: frozen prepare.py, baseline train.py, Kaggle runner, program.md",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

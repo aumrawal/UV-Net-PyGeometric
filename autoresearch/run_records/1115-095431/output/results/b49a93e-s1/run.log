@@ -1,0 +1,43 @@
+device cuda | 24215 training parts | 5,291,084 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 1.3111 | train time     36s
+epoch   2 | step    756 | train loss 0.7158 | train time     65s
+epoch   3 | step   1134 | train loss 0.5904 | train time     93s
+epoch   4 | step   1512 | train loss 0.5456 | train time    122s
+epoch   5 | step   1890 | train loss 0.4934 | train time    149s
+epoch   6 | step   2268 | train loss 0.4676 | train time    177s
+epoch   7 | step   2646 | train loss 0.4395 | train time    205s
+epoch   8 | step   3024 | train loss 0.4124 | train time    232s
+epoch   9 | step   3402 | train loss 0.3976 | train time    260s
+epoch  10 | step   3780 | train loss 0.3702 | train time    287s
+epoch  11 | step   4158 | train loss 0.3485 | train time    314s
+epoch  12 | step   4536 | train loss 0.3331 | train time    341s
+epoch  13 | step   4914 | train loss 0.3098 | train time    368s
+epoch  14 | step   5292 | train loss 0.2957 | train time    396s
+epoch  15 | step   5670 | train loss 0.2695 | train time    423s
+epoch  16 | step   6048 | train loss 0.2515 | train time    450s
+epoch  17 | step   6426 | train loss 0.2375 | train time    477s
+epoch  18 | step   6804 | train loss 0.2188 | train time    504s
+epoch  19 | step   7182 | train loss 0.2046 | train time    531s
+epoch  20 | step   7560 | train loss 0.1967 | train time    558s
+epoch  21 | step   7938 | train loss 0.1953 | train time    585s
+epoch  22 | step   8155 | train loss 0.1882 | train time    600s
+---
+val_miou:         0.675700
+val_acc:          0.895024
+val_loss:         0.516027
+training_seconds: 600.0
+total_seconds:    607.0
+peak_vram_mb:     1576.0
+num_epochs:       22
+num_steps:        8155
+num_params_M:     5.29
+iou_ExtrudeSide: 0.8650
+iou_ExtrudeEnd: 0.8731
+iou_CutSide: 0.6158
+iou_CutEnd: 0.5825
+iou_Fillet: 0.8044
+iou_Chamfer: 0.8121
+iou_RevolveSide: 0.6989
+iou_RevolveEnd: 0.1538

@@ -1,0 +1,14 @@
+{
+ "code_file": "script.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_internet": true,
+ "dataset_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "id": "aumr1101/uvnet-ar-fusion360-preprocess",
+ "title": "uvnet-ar fusion360 preprocess",
+ "enable_gpu": false,
+ "kernel_sources": []
+}

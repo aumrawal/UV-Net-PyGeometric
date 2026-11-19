@@ -1,0 +1,14 @@
+{
+ "batch": "1116-231848",
+ "budget": 4500,
+ "experiments": [
+  {
+   "rev": "69b9bd9",
+   "subject": "Final test: train e09d1fb, then score the official test split with prepare.evaluate's code and save the weights",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

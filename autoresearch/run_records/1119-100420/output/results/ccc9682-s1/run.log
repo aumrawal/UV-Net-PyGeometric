@@ -1,0 +1,54 @@
+device cuda | 24215 training parts | 1,377,996 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 1.1065 | train time     30s
+epoch   2 | step    756 | train loss 0.5018 | train time     56s
+epoch   3 | step   1134 | train loss 0.4263 | train time     81s
+epoch   4 | step   1512 | train loss 0.3892 | train time    106s
+epoch   5 | step   1890 | train loss 0.3594 | train time    130s
+epoch   6 | step   2268 | train loss 0.3377 | train time    154s
+epoch   7 | step   2646 | train loss 0.3220 | train time    178s
+epoch   8 | step   3024 | train loss 0.3066 | train time    202s
+epoch   9 | step   3402 | train loss 0.2865 | train time    226s
+epoch  10 | step   3780 | train loss 0.2777 | train time    249s
+epoch  11 | step   4158 | train loss 0.2599 | train time    273s
+epoch  12 | step   4536 | train loss 0.2444 | train time    297s
+epoch  13 | step   4914 | train loss 0.2339 | train time    320s
+epoch  14 | step   5292 | train loss 0.2164 | train time    344s
+epoch  15 | step   5670 | train loss 0.2035 | train time    368s
+epoch  16 | step   6048 | train loss 0.1898 | train time    391s
+epoch  17 | step   6426 | train loss 0.1800 | train time    415s
+epoch  18 | step   6804 | train loss 0.1668 | train time    438s
+epoch  19 | step   7182 | train loss 0.1561 | train time    462s
+epoch  20 | step   7560 | train loss 0.1480 | train time    485s
+epoch  21 | step   7938 | train loss 0.1418 | train time    508s
+epoch  22 | step   8316 | train loss 0.1349 | train time    532s
+epoch  23 | step   8694 | train loss 0.1309 | train time    555s
+epoch  24 | step   9072 | train loss 0.1289 | train time    578s
+epoch  25 | step   9428 | train loss 0.1268 | train time    600s
+--- inference
+fp16_val_miou:    0.784031
+fp16_val_miou8:   0.724608
+fp16_val_acc:     0.909502
+infer_trained: fp32 3.773s fp16 1.583s for 6056 parts (1605 / 3825 parts/s)
+infer_h64: fp32 3.764s fp16 1.579s for 6056 parts (1609 / 3835 parts/s)
+infer_h128: fp32 4.509s fp16 1.805s for 6056 parts (1343 / 3354 parts/s)
+---
+val_miou:         0.783937
+val_miou8:        0.724525
+val_acc:          0.909481
+val_loss:         0.309639
+training_seconds: 600.0
+total_seconds:    695.5
+peak_vram_mb:     1272.3
+num_epochs:       25
+num_steps:        9428
+num_params_M:     1.38
+iou_ExtrudeSide: 0.8796
+iou_ExtrudeEnd: 0.8896
+iou_CutSide: 0.6669
+iou_CutEnd: 0.6426
+iou_Fillet: 0.8437
+iou_Chamfer: 0.8348
+iou_RevolveSide: 0.7304
+iou_RevolveEnd: 0.3086

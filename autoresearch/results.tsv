@@ -1,0 +1,113 @@
+commit	seed	val_miou	val_miou8	val_acc	memory_gb	epochs	status	description	batch
+3f5c54a	0	0.610745	0.534402	0.822174	2.5	9	keep	UV-Net autoresearch harness: frozen prepare.py, baseline train.py, Kaggle runner, program.md	1114-222115
+3f5c54a	1	0.611108	0.534719	0.832116	2.5	9	keep	UV-Net autoresearch harness: frozen prepare.py, baseline train.py, Kaggle runner, program.md	1114-222115
+350c9ff	0	0.647137	0.566245	0.850035	2.3	10	keep	Convexity edge features (normal angle + centroid-offset signs) added to curve embeddings	1115-040318
+36ea467	0	0.637717	0.558003	0.849091	2.5	9	keep	Cosine LR decay over the budget, peak 2e-3, 200-step warmup	1115-040318
+7b94413	0	0.558013	0.498612	0.752580	2.5	9	discard	Inverse-sqrt-frequency class weights in the cross entropy	1115-040318
+eb88478	0	0.598768	0.523922	0.833646	2.5	8	discard	2 data-loader workers (runs are CPU-bound: 64s/epoch vs 47s solo)	1115-040318
+4a25d1d	0	0.680600	0.595525	0.867846	2.3	9	discard	Label smoothing 0.1 (on convexity + cosine)	1115-061639
+871d639	0	0.646081	0.565321	0.853910	2.5	9	discard	3 rounds of message passing instead of 2 (on convexity + cosine)	1115-061639
+d2b21a9	0	0.693542	0.606849	0.875552	0.9	16	keep	fp16 autocast + GradScaler on top of convexity + cosine	1115-061639
+d8e3305	0	0.601960	0.526715	0.830499	2.3	6	keep	Convexity features + cosine LR (peak 2e-3, warmup 200)	1115-061639
+1f92b1a	0	0.734502	0.649731	0.888349	1.3	28	discard	Batch 128 with peak LR 3e-3 (on AMP)	1115-080232
+3297c08	0	0.736781	0.669034	0.889651	0.9	26	keep	Runner: warm the data cache before the runs start, so all runs get the same budget	1115-080232
+bdfffe3	0	0.723642	0.642223	0.884474	0.9	25	discard	3 rounds of message passing (on AMP), retest with warm cache	1115-080232
+e6e0f35	0	0.732902	0.641289	0.887404	0.9	26	discard	Label smoothing 0.1 (on AMP), retest with warm cache	1115-080232
+0184956	0	0.728776	0.647953	0.887100	0.9	26	discard	Peak LR 4e-3 instead of 2e-3	1115-090944
+56b6b7e	0	0.673820	0.593064	0.863027	0.9	19	discard	Random 90-degree rotation augmentation	1115-090944
+c7a8ff8	0	0.723267	0.642858	0.886623	0.9	26	discard	Noise check: current best with seed + 1 (no other change)	1115-090944
+ed0dc7b	0	0.740196	0.662874	0.891084	1.3	24	keep	Message-passing hidden size 128 instead of 64	1115-090944
+3297c08	2	0.732560	0.659082	0.887350	0.9	26	keep	Runner: warm the data cache before the runs start, so all runs get the same budget	1115-093133
+3297c08	3	0.735940	0.651300	0.890530	0.9	26	keep	Runner: warm the data cache before the runs start, so all runs get the same budget	1115-093133
+ed0dc7b	2	0.749773	0.676885	0.897976	1.2	25	keep	Message-passing hidden size 128 instead of 64	1115-093133
+ed0dc7b	3	0.743123	0.684016	0.891800	1.3	25	keep	Message-passing hidden size 128 instead of 64	1115-093133
+6a2ed6b	0	0.742286	0.649500	0.893971	1.3	23	discard	Label smoothing 0.1 (on hidden 128)	1115-095431
+6a2ed6b	1	0.744644	0.651564	0.891290	1.4	23	discard	Label smoothing 0.1 (on hidden 128)	1115-095431
+b49a93e	0	0.748232	0.661949	0.890953	1.4	22	discard	Surface and curve embeddings 128 instead of 64 (on hidden 128)	1115-095431
+b49a93e	1	0.750250	0.675700	0.895024	1.5	22	discard	Surface and curve embeddings 128 instead of 64 (on hidden 128)	1115-095431
+266993a	0	0.748724	0.671800	0.896489	1.3	24	discard	AdamW with weight decay 0.05 (on hidden 128)	1115-101731
+266993a	1	0.747501	0.666216	0.894546	1.4	24	discard	AdamW with weight decay 0.05 (on hidden 128)	1115-101731
+519aa97	0	0.737379	0.660832	0.891952	1.3	24	discard	EMA of weights (decay 0.999), evaluate the EMA model (on hidden 128)	1115-101731
+519aa97	1	0.738249	0.654414	0.893450	1.4	23	discard	EMA of weights (decay 0.999), evaluate the EMA model (on hidden 128)	1115-101731
+3ccc6b5	0	0.753265	0.674517	0.895447	1.5	22	keep	Local convexity at the edge midpoint (nearest-grid-point normals) added to the edge features	1115-104033
+3ccc6b5	1	0.755804	0.669891	0.898953	1.2	23	keep	Local convexity at the edge midpoint (nearest-grid-point normals) added to the edge features	1115-104033
+68dd24c	0	0.747770	0.677026	0.897976	1.3	23	discard	Face size input: log area + bounding-box extent (face_attr) added to the face embedding	1115-104033
+68dd24c	1	0.750563	0.672368	0.899148	1.4	23	discard	Face size input: log area + bounding-box extent (face_attr) added to the face embedding	1115-104033
+0659fff	0	0.751557	0.673457	0.897183	1.7	23	discard	Surface and curve embeddings 128 instead of 64 (on local convexity)	1115-162017
+0659fff	1	0.753293	0.676760	0.896055	1.4	23	discard	Surface and curve embeddings 128 instead of 64 (on local convexity)	1115-162017
+5df86c8	0	0.759005	0.670979	0.899615	1.5	24	discard	AdamW with weight decay 0.05 (on local convexity)	1115-162017
+5df86c8	1	0.752111	0.672337	0.894437	1.2	24	discard	AdamW with weight decay 0.05 (on local convexity)	1115-162017
+afed89d	0	0.755544	0.670969	0.896782	1.3	24	discard	Face size input: log area + bounding-box extent (face_attr) added to the face embedding (on local convexity)	1115-162017
+afed89d	1	0.748613	0.676996	0.895425	1.3	24	discard	Face size input: log area + bounding-box extent (face_attr) added to the face embedding (on local convexity)	1115-162017
+9baf1f0	0	0.740862	0.654504	0.889846	1.6	21	discard	3 rounds of message passing instead of 2 (on hidden 128 + local convexity)	1115-174718
+9baf1f0	1	0.074194	0.064920	0.519357	1.6	20	discard	3 rounds of message passing instead of 2 (on hidden 128 + local convexity)	1115-174718
+b8b03ed	0	0.758265	0.683752	0.898356	1.3	22	keep	NNConv root weight: each face keeps a direct self-connection in message passing	1115-174718
+b8b03ed	1	0.759726	0.690445	0.899680	1.4	23	keep	NNConv root weight: each face keeps a direct self-connection in message passing	1115-174718
+e11e355	0	0.753821	0.676569	0.897965	1.3	23	discard	Jumping knowledge: the classifier sees the face embedding of every message-passing layer	1115-174718
+e11e355	1	0.761233	0.693323	0.902220	1.3	22	discard	Jumping knowledge: the classifier sees the face embedding of every message-passing layer	1115-174718
+2512686	0	0.755493	0.676056	0.897227	1.9	19	discard	Message passing in fp32 (on root weight): an fp16 overflow in NNConv poisons the BatchNorm running stats	1115-215834
+2512686	1	0.753946	0.682590	0.894861	2.1	19	discard	Message passing in fp32 (on root weight): an fp16 overflow in NNConv poisons the BatchNorm running stats	1115-215834
+765236f	0	0.735334	0.647040	0.887687	2.4	15	discard	3 rounds of message passing, in fp32 (on root weight)	1115-215834
+765236f	1	0.745025	0.655520	0.891203	2.5	15	discard	3 rounds of message passing, in fp32 (on root weight)	1115-215834
+7c99b27	0	0.758472	0.694507	0.899159	1.2	23	discard	Jumping knowledge (on root weight)	1115-215834
+7c99b27	1	0.757982	0.693683	0.899181	1.3	23	discard	Jumping knowledge (on root weight)	1115-215834
+300c13c	0	0.751667	0.675315	0.899300	0.9	19	discard	Batch size 32 instead of 64 (on root weight)	1115-223151
+300c13c	1	0.750557	0.675071	0.896337	0.9	19	discard	Batch size 32 instead of 64 (on root weight)	1115-223151
+78a8414	0	0.755491	0.672567	0.899756	1.3	24	discard	Classifier dropout 0.5 instead of 0.3 (on root weight)	1115-223151
+78a8414	1	0.759061	0.679178	0.899582	1.4	24	discard	Classifier dropout 0.5 instead of 0.3 (on root weight)	1115-223151
+c68e4e2	0	0.763157	0.688830	0.901362	1.3	24	keep	Mean instead of sum aggregation in NNConv (on root weight)	1115-223151
+c68e4e2	1	0.768107	0.696803	0.901677	1.4	24	keep	Mean instead of sum aggregation in NNConv (on root weight)	1115-223151
+1b002df	0	0.761951	0.691707	0.902513	1.3	23	discard	Peak LR 3e-3 instead of 2e-3 (on mean aggregation)	1115-230518
+1b002df	1	0.757615	0.689012	0.899484	1.4	23	discard	Peak LR 3e-3 instead of 2e-3 (on mean aggregation)	1115-230518
+67c7d15	0	0.766424	0.699691	0.903782	1.2	23	discard	Log face degree added to the face embedding (on mean aggregation)	1115-230518
+67c7d15	1	0.769740	0.709016	0.904531	1.2	23	discard	Log face degree added to the face embedding (on mean aggregation)	1115-230518
+b9ba178	0	0.762887	0.692843	0.902078	1.3	23	discard	Max + mean pooling for the part embedding (on mean aggregation)	1115-230518
+b9ba178	1	0.755819	0.697859	0.899821	1.4	23	discard	Max + mean pooling for the part embedding (on mean aggregation)	1115-230518
+67c7d15	2	0.768601	0.707336	0.901438	1.3	24	discard	Log face degree added to the face embedding (on mean aggregation)	1116-011430
+67c7d15	3	0.768111	0.695535	0.903240	1.3	24	discard	Log face degree added to the face embedding (on mean aggregation)	1116-011430
+c68e4e2	2	0.766672	0.703306	0.901536	1.2	24	keep	Mean instead of sum aggregation in NNConv (on root weight)	1116-011430
+c68e4e2	3	0.769295	0.705945	0.906105	1.4	24	keep	Mean instead of sum aggregation in NNConv (on root weight)	1116-011430
+1dc7325	0	0.769369	0.705175	0.906094	1.3	23	discard	Face grids centred on the face centroid, centroid fed separately (on mean aggregation)	1116-013751
+1dc7325	1	0.770923	0.706570	0.902697	1.3	22	discard	Face grids centred on the face centroid, centroid fed separately (on mean aggregation)	1116-013751
+1fdedee	0	0.778256	0.721636	0.909643	1.3	23	keep	Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)	1116-013751
+1fdedee	1	0.772842	0.714927	0.906474	1.3	24	keep	Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)	1116-013751
+e11a833	0	0.383358	0.337105	0.525045	1.3	24	discard	Face and edge grids also scale-normalised, log sizes fed separately (on centring)	1116-020102
+e11a833	1	0.382658	0.338752	0.524871	1.3	24	discard	Face and edge grids also scale-normalised, log sizes fed separately (on centring)	1116-020102
+fc942fe	0	0.407204	0.358935	0.572117	1.3	24	discard	Face grids also scale-normalised (RMS radius), log size fed separately (on centring)	1116-020102
+fc942fe	1	0.305505	0.267785	0.391708	1.3	24	discard	Face grids also scale-normalised (RMS radius), log size fed separately (on centring)	1116-020102
+9c22fd8	0	0.782870	0.727199	0.912617	1.3	23	discard	Face grids also scale-normalised (RMS radius), log size fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-022403
+9c22fd8	1	0.771521	0.705925	0.906420	1.3	23	discard	Face grids also scale-normalised (RMS radius), log size fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-022403
+e09d1fb	0	0.778563	0.725450	0.905052	1.3	23	keep	Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-022403
+e09d1fb	1	0.786387	0.719716	0.911749	1.3	23	keep	Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-022403
+1fdedee	2	0.775229	0.713819	0.906941	1.4	23	keep	Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)	1116-024648
+1fdedee	3	0.780305	0.722324	0.910946	1.3	23	keep	Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)	1116-024648
+e09d1fb	2	0.782667	0.718488	0.909274	1.3	23	keep	Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-024648
+e09d1fb	3	0.788306	0.724828	0.912574	1.3	23	keep	Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-024648
+1825f52	0	0.766498	0.697585	0.900353	1.3	23	discard	Random 90-degree rotation per batch, on the GPU (on scale normalisation)	1116-031015
+1825f52	1	0.766945	0.698104	0.902198	1.3	23	discard	Random 90-degree rotation per batch, on the GPU (on scale normalisation)	1116-031015
+c79c085	0	0.724895	0.653270	0.883736	1.3	23	discard	Uniform random rotation per batch, on the GPU (on scale normalisation)	1116-031015
+c79c085	1	0.719991	0.656659	0.883714	1.3	23	discard	Uniform random rotation per batch, on the GPU (on scale normalisation)	1116-031015
+2dc2f32	0	0.781378	0.713118	0.908840	1.2	22	discard	Convexity at every point along the edge as 3 extra curve-CNN channels (on scale normalisation)	1116-033343
+2dc2f32	1	0.785274	0.721597	0.910772	1.3	22	discard	Convexity at every point along the edge as 3 extra curve-CNN channels (on scale normalisation)	1116-033343
+49adfb7	0	0.785128	0.724024	0.911391	1.4	22	discard	Surface and curve embeddings 128 instead of 64 (on scale normalisation)	1116-033343
+49adfb7	1	0.776357	0.720471	0.908005	1.6	22	discard	Surface and curve embeddings 128 instead of 64 (on scale normalisation)	1116-033343
+067e881	0	0.777300	0.720261	0.909687	1.3	23	discard	Surface CNN pools only over grid points inside the trim mask (on scale normalisation)	1116-035651
+067e881	1	0.781769	0.720980	0.912151	1.3	23	discard	Surface CNN pools only over grid points inside the trim mask (on scale normalisation)	1116-035651
+d6c9871	0	0.748739	0.655147	0.898377	1.3	8	discard	cudnn.benchmark on (on scale normalisation)	1116-035651
+d6c9871	1	0.756559	0.661989	0.901427	1.3	8	discard	cudnn.benchmark on (on scale normalisation)	1116-035651
+e09d1fb	0	0.784493	0.722722	0.911326	1.3	169	keep	Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-105724
+e09d1fb	1	0.782623	0.733952	0.912129	1.4	170	keep	Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)	1116-105724
+47f4521	0	0.783661	0.726822	0.910360	1.3	23	discard	Augmentation: random per-part scaling of each axis in [0.8, 1.2] (on scale normalisation)	1116-183942
+47f4521	1	0.777060	0.714019	0.907451	1.3	23	discard	Augmentation: random per-part scaling of each axis in [0.8, 1.2] (on scale normalisation)	1116-183942
+c19b34d	0	0.781392	0.720482	0.909709	1.3	24	discard	Augmentation: Gaussian point jitter, sigma 0.005 (on scale normalisation)	1116-183942
+c19b34d	1	0.773698	0.730319	0.907885	1.3	24	discard	Augmentation: Gaussian point jitter, sigma 0.005 (on scale normalisation)	1116-183942
+c5a48bc	0	0.758901	0.689953	0.895404	1.3	23	discard	Augmentation: random per-part mirror flip of each axis (on scale normalisation)	1116-183942
+c5a48bc	1	0.765457	0.704775	0.898714	1.3	23	discard	Augmentation: random per-part mirror flip of each axis (on scale normalisation)	1116-183942
+47f4521	0	0.781368	0.727175	0.909806	1.3	179	discard	Augmentation: random per-part scaling of each axis in [0.8, 1.2] (on scale normalisation)	1116-215711
+c5a48bc	0	0.755547	0.710154	0.896532	1.3	176	discard	Augmentation: random per-part mirror flip of each axis (on scale normalisation)	1116-215711
+69b9bd9	0	0.785046	0.728582	0.913062	1.3	180	keep	Final test: train e09d1fb, then score the official test split with prepare.evaluate's code and save the weights	1116-231848
+69b9bd9	1	0.773109	0.716649	0.908146	1.4	179	keep	Final test: train e09d1fb, then score the official test split with prepare.evaluate's code and save the weights	1116-231848
+c78bba4	0	0.785066	0.723077	0.911478	1.3	23	keep	Inference report: fp16 inference accuracy, and fp32 vs fp16 forward time for hidden 64 and 128 (on scale normalisation)	1119-100420
+c78bba4	1	0.773322	0.712802	0.908960	1.3	24	keep	Inference report: fp16 inference accuracy, and fp32 vs fp16 forward time for hidden 64 and 128 (on scale normalisation)	1119-100420
+ccc9682	0	0.777164	0.697666	0.909025	1.2	26	?	Message-passing hidden size 64 instead of 128, with the inference report (on scale normalisation)	1119-100420
+ccc9682	1	0.783937	0.724525	0.909481	1.2	25	?	Message-passing hidden size 64 instead of 128, with the inference report (on scale normalisation)	1119-100420

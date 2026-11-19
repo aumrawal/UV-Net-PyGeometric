@@ -1,0 +1,46 @@
+device cuda | 24215 training parts | 3,639,756 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 1.3232 | train time     30s
+epoch   2 | step    756 | train loss 0.7059 | train time     58s
+epoch   3 | step   1134 | train loss 0.5948 | train time     84s
+epoch   4 | step   1512 | train loss 0.5430 | train time    110s
+epoch   5 | step   1890 | train loss 0.4989 | train time    135s
+epoch   6 | step   2268 | train loss 0.4686 | train time    159s
+epoch   7 | step   2646 | train loss 0.4435 | train time    184s
+epoch   8 | step   3024 | train loss 0.4154 | train time    209s
+epoch   9 | step   3402 | train loss 0.3976 | train time    233s
+epoch  10 | step   3780 | train loss 0.3828 | train time    257s
+epoch  11 | step   4158 | train loss 0.3662 | train time    282s
+epoch  12 | step   4536 | train loss 0.3361 | train time    306s
+epoch  13 | step   4914 | train loss 0.3178 | train time    330s
+epoch  14 | step   5292 | train loss 0.3004 | train time    354s
+epoch  15 | step   5670 | train loss 0.2894 | train time    379s
+epoch  16 | step   6048 | train loss 0.2680 | train time    403s
+epoch  17 | step   6426 | train loss 0.2486 | train time    427s
+epoch  18 | step   6804 | train loss 0.2335 | train time    451s
+epoch  19 | step   7182 | train loss 0.2187 | train time    475s
+epoch  20 | step   7560 | train loss 0.2087 | train time    499s
+epoch  21 | step   7938 | train loss 0.1972 | train time    523s
+epoch  22 | step   8316 | train loss 0.1879 | train time    547s
+epoch  23 | step   8694 | train loss 0.1838 | train time    571s
+epoch  24 | step   9072 | train loss 0.1807 | train time    595s
+epoch  25 | step   9152 | train loss 0.1789 | train time    600s
+---
+val_miou:         0.676885
+val_acc:          0.897976
+val_loss:         0.408355
+training_seconds: 600.1
+total_seconds:    605.7
+peak_vram_mb:     1263.7
+num_epochs:       25
+num_steps:        9152
+num_params_M:     3.64
+iou_ExtrudeSide: 0.8707
+iou_ExtrudeEnd: 0.8726
+iou_CutSide: 0.6233
+iou_CutEnd: 0.5336
+iou_Fillet: 0.8198
+iou_Chamfer: 0.7986
+iou_RevolveSide: 0.7297
+iou_RevolveEnd: 0.1667

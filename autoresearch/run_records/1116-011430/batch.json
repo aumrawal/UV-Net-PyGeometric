@@ -1,0 +1,22 @@
+{
+ "batch": "1116-011430",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "c68e4e2",
+   "subject": "Mean instead of sum aggregation in NNConv (on root weight)",
+   "seeds": [
+    2,
+    3
+   ]
+  },
+  {
+   "rev": "67c7d15",
+   "subject": "Log face degree added to the face embedding (on mean aggregation)",
+   "seeds": [
+    2,
+    3
+   ]
+  }
+ ]
+}

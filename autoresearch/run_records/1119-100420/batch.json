@@ -1,0 +1,22 @@
+{
+ "batch": "1119-100420",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "c78bba4",
+   "subject": "Inference report: fp16 inference accuracy, and fp32 vs fp16 forward time for hidden 64 and 128 (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "ccc9682",
+   "subject": "Message-passing hidden size 64 instead of 128, with the inference report (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

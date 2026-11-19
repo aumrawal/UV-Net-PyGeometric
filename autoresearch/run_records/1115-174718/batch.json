@@ -1,0 +1,30 @@
+{
+ "batch": "1115-174718",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "b8b03ed",
+   "subject": "NNConv root weight: each face keeps a direct self-connection in message passing",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "e11e355",
+   "subject": "Jumping knowledge: the classifier sees the face embedding of every message-passing layer",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "9baf1f0",
+   "subject": "3 rounds of message passing instead of 2 (on hidden 128 + local convexity)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

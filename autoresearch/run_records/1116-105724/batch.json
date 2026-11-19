@@ -1,0 +1,14 @@
+{
+ "batch": "1116-105724",
+ "budget": 4500,
+ "experiments": [
+  {
+   "rev": "e09d1fb",
+   "subject": "Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

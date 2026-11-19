@@ -1,0 +1,44 @@
+device cuda | 24215 training parts | 5,325,516 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 0.9933 | train time     32s
+epoch   2 | step    756 | train loss 0.4799 | train time     62s
+epoch   3 | step   1134 | train loss 0.3978 | train time     90s
+epoch   4 | step   1512 | train loss 0.3735 | train time    119s
+epoch   5 | step   1890 | train loss 0.3428 | train time    147s
+epoch   6 | step   2268 | train loss 0.3229 | train time    174s
+epoch   7 | step   2646 | train loss 0.3063 | train time    202s
+epoch   8 | step   3024 | train loss 0.2866 | train time    229s
+epoch   9 | step   3402 | train loss 0.2668 | train time    257s
+epoch  10 | step   3780 | train loss 0.2510 | train time    284s
+epoch  11 | step   4158 | train loss 0.2350 | train time    311s
+epoch  12 | step   4536 | train loss 0.2197 | train time    339s
+epoch  13 | step   4914 | train loss 0.1990 | train time    367s
+epoch  14 | step   5292 | train loss 0.1834 | train time    395s
+epoch  15 | step   5670 | train loss 0.1642 | train time    423s
+epoch  16 | step   6048 | train loss 0.1477 | train time    450s
+epoch  17 | step   6426 | train loss 0.1344 | train time    478s
+epoch  18 | step   6804 | train loss 0.1217 | train time    505s
+epoch  19 | step   7182 | train loss 0.1136 | train time    532s
+epoch  20 | step   7560 | train loss 0.1057 | train time    559s
+epoch  21 | step   7938 | train loss 0.1029 | train time    587s
+epoch  22 | step   8124 | train loss 0.0999 | train time    600s
+---
+val_miou:         0.776357
+val_miou8:        0.720471
+val_acc:          0.908005
+val_loss:         0.336054
+training_seconds: 600.1
+total_seconds:    606.5
+peak_vram_mb:     1636.5
+num_epochs:       22
+num_steps:        8124
+num_params_M:     5.33
+iou_ExtrudeSide: 0.8779
+iou_ExtrudeEnd: 0.8916
+iou_CutSide: 0.6554
+iou_CutEnd: 0.6129
+iou_Fillet: 0.8377
+iou_Chamfer: 0.8174
+iou_RevolveSide: 0.7416
+iou_RevolveEnd: 0.3293

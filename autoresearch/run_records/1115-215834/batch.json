@@ -1,0 +1,30 @@
+{
+ "batch": "1115-215834",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "7c99b27",
+   "subject": "Jumping knowledge (on root weight)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "2512686",
+   "subject": "Message passing in fp32 (on root weight): an fp16 overflow in NNConv poisons the BatchNorm running stats",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "765236f",
+   "subject": "3 rounds of message passing, in fp32 (on root weight)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}
