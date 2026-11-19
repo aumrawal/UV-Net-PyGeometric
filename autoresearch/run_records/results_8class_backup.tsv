@@ -1,0 +1,35 @@
+commit	seed	val_miou	val_acc	memory_gb	epochs	status	description	batch
+3f5c54a	0	0.534402	0.822174	2.5	9	keep	UV-Net autoresearch harness: frozen prepare.py, baseline train.py, Kaggle runner, program.md	1114-222115
+3f5c54a	1	0.534719	0.832116	2.5	9	keep	UV-Net autoresearch harness: frozen prepare.py, baseline train.py, Kaggle runner, program.md	1114-222115
+350c9ff	0	0.566245	0.850035	2.3	10	keep	Convexity edge features (normal angle + centroid-offset signs) added to curve embeddings	1115-040318
+36ea467	0	0.558003	0.849091	2.5	9	keep	Cosine LR decay over the budget, peak 2e-3, 200-step warmup	1115-040318
+7b94413	0	0.498612	0.752580	2.5	9	discard	Inverse-sqrt-frequency class weights in the cross entropy	1115-040318
+eb88478	0	0.523922	0.833646	2.5	8	discard	2 data-loader workers (runs are CPU-bound: 64s/epoch vs 47s solo)	1115-040318
+4a25d1d	0	0.595525	0.867846	2.3	9	discard	Label smoothing 0.1 (on convexity + cosine)	1115-061639
+871d639	0	0.565321	0.853910	2.5	9	discard	3 rounds of message passing instead of 2 (on convexity + cosine)	1115-061639
+d2b21a9	0	0.606849	0.875552	0.9	16	keep	fp16 autocast + GradScaler on top of convexity + cosine	1115-061639
+d8e3305	0	0.526715	0.830499	2.3	6	keep	Convexity features + cosine LR (peak 2e-3, warmup 200)	1115-061639
+1f92b1a	0	0.649731	0.888349	1.3	28	discard	Batch 128 with peak LR 3e-3 (on AMP)	1115-080232
+3297c08	0	0.669034	0.889651	0.9	26	keep	Runner: warm the data cache before the runs start, so all runs get the same budget	1115-080232
+bdfffe3	0	0.642223	0.884474	0.9	25	discard	3 rounds of message passing (on AMP), retest with warm cache	1115-080232
+e6e0f35	0	0.641289	0.887404	0.9	26	discard	Label smoothing 0.1 (on AMP), retest with warm cache	1115-080232
+0184956	0	0.647953	0.887100	0.9	26	discard	Peak LR 4e-3 instead of 2e-3	1115-090944
+56b6b7e	0	0.593064	0.863027	0.9	19	discard	Random 90-degree rotation augmentation	1115-090944
+c7a8ff8	0	0.642858	0.886623	0.9	26	discard	Noise check: current best with seed + 1 (no other change)	1115-090944
+ed0dc7b	0	0.662874	0.891084	1.3	24	keep	Message-passing hidden size 128 instead of 64	1115-090944
+3297c08	2	0.659082	0.887350	0.9	26	keep	Runner: warm the data cache before the runs start, so all runs get the same budget	1115-093133
+3297c08	3	0.651300	0.890530	0.9	26	keep	Runner: warm the data cache before the runs start, so all runs get the same budget	1115-093133
+ed0dc7b	2	0.676885	0.897976	1.2	25	keep	Message-passing hidden size 128 instead of 64	1115-093133
+ed0dc7b	3	0.684016	0.891800	1.3	25	keep	Message-passing hidden size 128 instead of 64	1115-093133
+6a2ed6b	0	0.649500	0.893971	1.3	23	discard	Label smoothing 0.1 (on hidden 128)	1115-095431
+6a2ed6b	1	0.651564	0.891290	1.4	23	discard	Label smoothing 0.1 (on hidden 128)	1115-095431
+b49a93e	0	0.661949	0.890953	1.4	22	discard	Surface and curve embeddings 128 instead of 64 (on hidden 128)	1115-095431
+b49a93e	1	0.675700	0.895024	1.5	22	discard	Surface and curve embeddings 128 instead of 64 (on hidden 128)	1115-095431
+266993a	0	0.671800	0.896489	1.3	24	discard	AdamW with weight decay 0.05 (on hidden 128)	1115-101731
+266993a	1	0.666216	0.894546	1.4	24	discard	AdamW with weight decay 0.05 (on hidden 128)	1115-101731
+519aa97	0	0.660832	0.891952	1.3	24	discard	EMA of weights (decay 0.999), evaluate the EMA model (on hidden 128)	1115-101731
+519aa97	1	0.654414	0.893450	1.4	23	discard	EMA of weights (decay 0.999), evaluate the EMA model (on hidden 128)	1115-101731
+3ccc6b5	0	0.674517	0.895447	1.5	22	?	Local convexity at the edge midpoint (nearest-grid-point normals) added to the edge features	1115-104033
+3ccc6b5	1	0.669891	0.898953	1.2	23	?	Local convexity at the edge midpoint (nearest-grid-point normals) added to the edge features	1115-104033
+68dd24c	0	0.677026	0.897976	1.3	23	?	Face size input: log area + bounding-box extent (face_attr) added to the face embedding	1115-104033
+68dd24c	1	0.672368	0.899148	1.4	23	?	Face size input: log area + bounding-box extent (face_attr) added to the face embedding	1115-104033

@@ -1,0 +1,40 @@
+device cuda | 24215 training parts | 1,368,972 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 1.3613 | train time     41s
+epoch   2 | step    756 | train loss 0.7913 | train time     77s
+epoch   3 | step   1134 | train loss 0.7073 | train time    112s
+epoch   4 | step   1512 | train loss 0.6748 | train time    147s
+epoch   5 | step   1890 | train loss 0.6468 | train time    182s
+epoch   6 | step   2268 | train loss 0.6120 | train time    215s
+epoch   7 | step   2646 | train loss 0.5769 | train time    247s
+epoch   8 | step   3024 | train loss 0.5364 | train time    280s
+epoch   9 | step   3402 | train loss 0.5092 | train time    313s
+epoch  10 | step   3780 | train loss 0.4881 | train time    345s
+epoch  11 | step   4158 | train loss 0.4689 | train time    377s
+epoch  12 | step   4536 | train loss 0.4500 | train time    409s
+epoch  13 | step   4914 | train loss 0.4307 | train time    441s
+epoch  14 | step   5292 | train loss 0.4170 | train time    472s
+epoch  15 | step   5670 | train loss 0.4053 | train time    504s
+epoch  16 | step   6048 | train loss 0.3894 | train time    536s
+epoch  17 | step   6426 | train loss 0.3869 | train time    569s
+epoch  18 | step   6804 | train loss 0.3824 | train time    600s
+epoch  19 | step   6808 | train loss 0.3692 | train time    600s
+---
+val_miou:         0.593064
+val_acc:          0.863027
+val_loss:         0.629975
+training_seconds: 600.1
+total_seconds:    604.9
+peak_vram_mb:     897.7
+num_epochs:       19
+num_steps:        6808
+num_params_M:     1.37
+iou_ExtrudeSide: 0.8326
+iou_ExtrudeEnd: 0.8302
+iou_CutSide: 0.5351
+iou_CutEnd: 0.5192
+iou_Fillet: 0.7583
+iou_Chamfer: 0.6852
+iou_RevolveSide: 0.5561
+iou_RevolveEnd: 0.0278

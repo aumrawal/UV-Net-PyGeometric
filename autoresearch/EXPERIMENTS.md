@@ -140,7 +140,7 @@ paid every time a part is labelled, so it grows with usage.
 - Training past 10 minutes buys almost nothing (7-class 0.7840 at 10 min vs 0.7836 at 75 min). Only
   RevolveEnd improves, so a 10-minute run is the cost-efficient choice unless RevolveEnd matters.
 
-### Inference: about 13% more expensive per part
+### Inference: 13% dearer in fp32, roughly 2x cheaper in fp16 (estimate)
 
 Evaluation time on the same validation split, one T4, fp32, data cache warm (from the Kaggle run logs):
 
@@ -156,14 +156,25 @@ Evaluation time on the same validation split, one T4, fp32, data cache warm (fro
   which barely changed. The extra parameters sit in NNConv's edge network, which grows with hidden size squared.
 - Absolute cost is small either way: the final model scored the 5,360 test parts in 4.5 s on a T4, about
   1,200 parts per second including data loading.
-- Not yet tested, likely to make inference cheaper: running inference in fp16 (only training uses it now),
-  and going back to hidden 64, which gave only +0.009 accuracy and accounts for most of the extra parameters.
+- **fp16 inference and hidden 64, tested (batch 1119-100420).** Model-only forward time over the 6,056 val parts on
+  a T4, batches already on the GPU, mean of 4 runs:
+
+  | Model | Parameters | fp32 | fp16 |
+  |---|---|---|---|
+  | Hidden 128 (`e09d1fb`) | 3.67M | 4.38 s (1,380 parts/s) | 1.75 s (3,450 parts/s) |
+  | Hidden 64 | 1.38M | 3.65 s (1,660 parts/s) | 1.54 s (3,930 parts/s) |
+
+  - fp16 inference is 2.4 to 2.5x faster and costs no accuracy: fp16 and fp32 val mIoU differ by at most 0.0001.
+  - Hidden 64 scores 0.781 on the 7-class metric (2 seeds) vs 0.779 for its same-batch control and 0.784 for
+    `e09d1fb` over 4 seeds: a tie within noise, with 2.7x fewer parameters.
+  - Hidden 64 in fp16 is about 2.8x faster than hidden 128 in fp32, so with these two changes the new model is
+    cheaper to run than the original UV-Net in fp32, not 13 % dearer.
 
 ### Overall
 
 - **Retraining often**: the new recipe is far cheaper (about 1/8 of the GPU time per run) and more accurate.
-- **Labelling many parts with a fixed model**: the new model costs about 13% more per part, until fp16
-  inference or hidden 64 are tested.
+- **Labelling many parts with a fixed model**: run it in fp16 (2.5x faster, same accuracy), and use hidden 64 if
+  2 more seeds confirm the tie: about 2.8x cheaper than hidden 128 in fp32.
 - **The search itself** cost about 12 to 17 GPU-hours (estimated). At about 70 minutes saved per training run
   it pays for itself after roughly 10 to 15 retrains; anyone reusing the finished recipe gets the saving free.
 - **Caveats**: one dataset (Fusion 360 segmentation), one GPU type (T4), and the 78-minute reference is a

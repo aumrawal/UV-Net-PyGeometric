@@ -1,0 +1,22 @@
+[{"stream_name":"stdout","time":7.482558603,"data":"GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']\n"}
+,{"stream_name":"stdout","time":20.971595331,"data":"cache warmed in 13s\n"}
+,{"stream_name":"stdout","time":20.97314652,"data":"[    20s] gpu0 start 7c99b27-s0\n"}
+,{"stream_name":"stdout","time":20.975859175,"data":"[    20s] gpu1 start 7c99b27-s1\n"}
+,{"stream_name":"stdout","time":665.730788482,"data":"[   665s] gpu0 ok 7c99b27-s0 0.7584721446037292\n"}
+,{"stream_name":"stdout","time":665.731381415,"data":"[   665s] gpu0 start 2512686-s0\n"}
+,{"stream_name":"stdout","time":665.783179102,"data":"[   665s] gpu1 ok 7c99b27-s1 0.7579823732376099\n"}
+,{"stream_name":"stdout","time":665.78361051,"data":"[   665s] gpu1 start 2512686-s1\n"}
+,{"stream_name":"stdout","time":1284.669694941,"data":"[  1284s] gpu1 ok 2512686-s1 0.7539462447166443\n"}
+,{"stream_name":"stdout","time":1284.670589146,"data":"[  1284s] gpu1 start 765236f-s0\n"}
+,{"stream_name":"stdout","time":1284.770881838,"data":"[  1284s] gpu0 ok 2512686-s0 0.7554928064346313\n"}
+,{"stream_name":"stdout","time":1284.771447685,"data":"[  1284s] gpu0 start 765236f-s1\n"}
+,{"stream_name":"stdout","time":1904.302444186,"data":"[  1903s] gpu1 ok 765236f-s0 0.7353339195251465\n"}
+,{"stream_name":"stdout","time":1904.411538283,"data":"[  1904s] gpu0 ok 765236f-s1 0.7450251579284668\n"}
+,{"stream_name":"stdout","time":1904.437722995,"data":"Batch 1115-215834 done in 31.7 min\n"}
+,{"stream_name":"stderr","time":1906.576906237,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1906.576933149,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1906.872300638,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1906.872330053,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1907.717070536,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1908.777991136,"data":"[NbConvertApp] Writing 407461 bytes to __results__.html\n"}
+]

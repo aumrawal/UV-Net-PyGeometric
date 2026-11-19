@@ -1,0 +1,18 @@
+[{"stream_name":"stdout","time":9.545064967,"data":"GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']\n"}
+,{"stream_name":"stdout","time":15.780521912,"data":"cache warmed in 6s\n"}
+,{"stream_name":"stdout","time":15.782102587,"data":"[    14s] gpu0 start 266993a-s0\n"}
+,{"stream_name":"stdout","time":15.783648264,"data":"[    14s] gpu1 start 266993a-s1\n"}
+,{"stream_name":"stdout","time":682.029049283,"data":"[   680s] gpu0 ok 266993a-s0 0.6717997789382935\n"}
+,{"stream_name":"stdout","time":682.02910538,"data":"[   680s] gpu0 start 519aa97-s0\n"}
+,{"stream_name":"stdout","time":682.124363027,"data":"[   681s] gpu1 ok 266993a-s1 0.6662163734436035\n"}
+,{"stream_name":"stdout","time":682.124390876,"data":"[   681s] gpu1 start 519aa97-s1\n"}
+,{"stream_name":"stdout","time":1300.165074219,"data":"[  1299s] gpu0 ok 519aa97-s0 0.6608319282531738\n"}
+,{"stream_name":"stdout","time":1300.535508565,"data":"[  1299s] gpu1 ok 519aa97-s1 0.6544138789176941\n"}
+,{"stream_name":"stdout","time":1300.575850954,"data":"Batch 1115-101731 done in 21.7 min\n"}
+,{"stream_name":"stderr","time":1303.0467698,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1303.046803587,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1303.456974514,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1303.457001622,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1304.378680466,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1305.710844978,"data":"[NbConvertApp] Writing 364765 bytes to __results__.html\n"}
+]

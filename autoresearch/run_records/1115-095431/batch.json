@@ -1,0 +1,22 @@
+{
+ "batch": "1115-095431",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "b49a93e",
+   "subject": "Surface and curve embeddings 128 instead of 64 (on hidden 128)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "6a2ed6b",
+   "subject": "Label smoothing 0.1 (on hidden 128)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

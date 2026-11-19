@@ -1,0 +1,14 @@
+[{"stream_name":"stdout","time":5.84548914,"data":"GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']\n"}
+,{"stream_name":"stdout","time":11.633153674999999,"data":"cache warmed in 6s\n"}
+,{"stream_name":"stdout","time":11.634600391,"data":"[    11s] gpu0 start c5a48bc-s0\n"}
+,{"stream_name":"stdout","time":11.635549538,"data":"[    11s] gpu1 start 47f4521-s0\n"}
+,{"stream_name":"stdout","time":4546.780693383,"data":"[  4546s] gpu1 ok 47f4521-s0 0.7813677191734314\n"}
+,{"stream_name":"stdout","time":4546.850215549,"data":"[  4546s] gpu0 ok c5a48bc-s0 0.755546510219574\n"}
+,{"stream_name":"stdout","time":4546.86638298,"data":"Batch 1116-215711 done in 75.8 min\n"}
+,{"stream_name":"stderr","time":4548.80481243,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":4548.804841874,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":4549.027391432,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":4549.027413423,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4549.767962482,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":4550.631105676,"data":"[NbConvertApp] Writing 342749 bytes to __results__.html\n"}
+]

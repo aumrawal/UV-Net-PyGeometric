@@ -1,0 +1,22 @@
+{
+ "batch": "1116-033343",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "2dc2f32",
+   "subject": "Convexity at every point along the edge as 3 extra curve-CNN channels (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "49adfb7",
+   "subject": "Surface and curve embeddings 128 instead of 64 (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

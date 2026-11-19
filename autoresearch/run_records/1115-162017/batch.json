@@ -1,0 +1,30 @@
+{
+ "batch": "1115-162017",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "afed89d",
+   "subject": "Face size input: log area + bounding-box extent (face_attr) added to the face embedding (on local convexity)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "5df86c8",
+   "subject": "AdamW with weight decay 0.05 (on local convexity)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "0659fff",
+   "subject": "Surface and curve embeddings 128 instead of 64 (on local convexity)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

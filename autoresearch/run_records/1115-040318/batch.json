@@ -1,0 +1,34 @@
+{
+ "batch": "1115-040318",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "eb88478",
+   "subject": "2 data-loader workers (runs are CPU-bound: 64s/epoch vs 47s solo)",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "36ea467",
+   "subject": "Cosine LR decay over the budget, peak 2e-3, 200-step warmup",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "350c9ff",
+   "subject": "Convexity edge features (normal angle + centroid-offset signs) added to curve embeddings",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "7b94413",
+   "subject": "Inverse-sqrt-frequency class weights in the cross entropy",
+   "seeds": [
+    0
+   ]
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "val_miou": 0.03822583705186844,
+ "val_miou8": 0.03344760835170746,
+ "val_acc": 0.126195028424263,
+ "val_loss": 2.112439595034656,
+ "per_class_iou": {
+  "ExtrudeSide": 0.0,
+  "ExtrudeEnd": 0.0,
+  "CutSide": 0.10000000149011612,
+  "CutEnd": 0.0,
+  "Fillet": 0.04958677664399147,
+  "Chamfer": 0.0,
+  "RevolveSide": 0.11799409985542297,
+  "RevolveEnd": 0.0
+ },
+ "eval_seconds": 0.8058538436889648,
+ "seconds_since_start": 6.1114068031311035,
+ "time_budget": 5
+}

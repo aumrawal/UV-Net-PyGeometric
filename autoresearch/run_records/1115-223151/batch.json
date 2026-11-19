@@ -1,0 +1,30 @@
+{
+ "batch": "1115-223151",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "c68e4e2",
+   "subject": "Mean instead of sum aggregation in NNConv (on root weight)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "78a8414",
+   "subject": "Classifier dropout 0.5 instead of 0.3 (on root weight)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "300c13c",
+   "subject": "Batch size 32 instead of 64 (on root weight)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

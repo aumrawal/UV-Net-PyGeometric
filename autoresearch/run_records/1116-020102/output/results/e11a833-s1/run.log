@@ -1,0 +1,46 @@
+device cuda | 24215 training parts | 3,665,164 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 1.2078 | train time     32s
+epoch   2 | step    756 | train loss 0.6292 | train time     61s
+epoch   3 | step   1134 | train loss 0.5425 | train time     88s
+epoch   4 | step   1512 | train loss 0.4742 | train time    114s
+epoch   5 | step   1890 | train loss 0.4411 | train time    140s
+epoch   6 | step   2268 | train loss 0.4014 | train time    167s
+epoch   7 | step   2646 | train loss 0.3777 | train time    192s
+epoch   8 | step   3024 | train loss 0.3578 | train time    217s
+epoch   9 | step   3402 | train loss 0.3300 | train time    243s
+epoch  10 | step   3780 | train loss 0.3131 | train time    268s
+epoch  11 | step   4158 | train loss 0.2906 | train time    293s
+epoch  12 | step   4536 | train loss 0.2757 | train time    319s
+epoch  13 | step   4914 | train loss 0.2561 | train time    344s
+epoch  14 | step   5292 | train loss 0.2393 | train time    370s
+epoch  15 | step   5670 | train loss 0.2224 | train time    395s
+epoch  16 | step   6048 | train loss 0.2063 | train time    420s
+epoch  17 | step   6426 | train loss 0.1893 | train time    445s
+epoch  18 | step   6804 | train loss 0.1762 | train time    470s
+epoch  19 | step   7182 | train loss 0.1663 | train time    495s
+epoch  20 | step   7560 | train loss 0.1556 | train time    520s
+epoch  21 | step   7938 | train loss 0.1505 | train time    545s
+epoch  22 | step   8316 | train loss 0.1463 | train time    570s
+epoch  23 | step   8694 | train loss 0.1441 | train time    595s
+epoch  24 | step   8765 | train loss 0.1413 | train time    600s
+---
+val_miou:         0.382658
+val_miou8:        0.338752
+val_acc:          0.524871
+val_loss:         1.464233
+training_seconds: 600.0
+total_seconds:    605.8
+peak_vram_mb:     1314.4
+num_epochs:       24
+num_steps:        8765
+num_params_M:     3.67
+iou_ExtrudeSide: 0.3608
+iou_ExtrudeEnd: 0.3039
+iou_CutSide: 0.2552
+iou_CutEnd: 0.2317
+iou_Fillet: 0.6540
+iou_Chamfer: 0.5321
+iou_RevolveSide: 0.3408
+iou_RevolveEnd: 0.0314
