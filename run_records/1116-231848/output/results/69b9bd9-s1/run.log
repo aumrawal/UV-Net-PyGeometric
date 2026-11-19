@@ -1,0 +1,213 @@
+device cuda | 24215 training parts | 3,665,164 parameters | budget 4500s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 0.9976 | train time     37s
+epoch   2 | step    756 | train loss 0.4752 | train time     65s
+epoch   3 | step   1134 | train loss 0.4110 | train time     93s
+epoch   4 | step   1512 | train loss 0.3680 | train time    119s
+epoch   5 | step   1890 | train loss 0.3472 | train time    146s
+epoch   6 | step   2268 | train loss 0.3275 | train time    172s
+epoch   7 | step   2646 | train loss 0.3081 | train time    197s
+epoch   8 | step   3024 | train loss 0.2970 | train time    223s
+epoch   9 | step   3402 | train loss 0.2886 | train time    249s
+epoch  10 | step   3780 | train loss 0.2787 | train time    274s
+epoch  11 | step   4158 | train loss 0.2676 | train time    300s
+epoch  12 | step   4536 | train loss 0.2485 | train time    325s
+epoch  13 | step   4914 | train loss 0.2453 | train time    350s
+epoch  14 | step   5292 | train loss 0.2330 | train time    376s
+epoch  15 | step   5670 | train loss 0.2320 | train time    401s
+epoch  16 | step   6048 | train loss 0.2213 | train time    427s
+epoch  17 | step   6426 | train loss 0.2033 | train time    452s
+epoch  18 | step   6804 | train loss 0.2007 | train time    477s
+epoch  19 | step   7182 | train loss 0.2007 | train time    501s
+epoch  20 | step   7560 | train loss 0.1907 | train time    526s
+epoch  21 | step   7938 | train loss 0.1776 | train time    551s
+epoch  22 | step   8316 | train loss 0.1708 | train time    576s
+epoch  23 | step   8694 | train loss 0.1666 | train time    601s
+epoch  24 | step   9072 | train loss 0.1643 | train time    626s
+epoch  25 | step   9450 | train loss 0.1678 | train time    652s
+epoch  26 | step   9828 | train loss 0.1499 | train time    677s
+epoch  27 | step  10206 | train loss 0.1446 | train time    702s
+epoch  28 | step  10584 | train loss 0.1371 | train time    727s
+epoch  29 | step  10962 | train loss 0.1297 | train time    752s
+epoch  30 | step  11340 | train loss 0.1305 | train time    777s
+epoch  31 | step  11718 | train loss 0.1201 | train time    802s
+epoch  32 | step  12096 | train loss 0.1184 | train time    827s
+epoch  33 | step  12474 | train loss 0.1309 | train time    852s
+epoch  34 | step  12852 | train loss 0.1142 | train time    877s
+epoch  35 | step  13230 | train loss 0.0989 | train time    902s
+epoch  36 | step  13608 | train loss 0.0939 | train time    926s
+epoch  37 | step  13986 | train loss 0.0968 | train time    952s
+epoch  38 | step  14364 | train loss 0.1028 | train time    977s
+epoch  39 | step  14742 | train loss 0.0953 | train time   1002s
+epoch  40 | step  15120 | train loss 0.0866 | train time   1027s
+epoch  41 | step  15498 | train loss 0.0825 | train time   1052s
+epoch  42 | step  15876 | train loss 0.0840 | train time   1077s
+epoch  43 | step  16254 | train loss 0.0832 | train time   1102s
+epoch  44 | step  16632 | train loss 0.0773 | train time   1127s
+epoch  45 | step  17010 | train loss 0.0674 | train time   1152s
+epoch  46 | step  17388 | train loss 0.0659 | train time   1177s
+epoch  47 | step  17766 | train loss 0.0699 | train time   1202s
+epoch  48 | step  18144 | train loss 0.0611 | train time   1227s
+epoch  49 | step  18522 | train loss 0.0594 | train time   1252s
+epoch  50 | step  18900 | train loss 0.0585 | train time   1277s
+epoch  51 | step  19278 | train loss 0.0581 | train time   1302s
+epoch  52 | step  19656 | train loss 0.0551 | train time   1327s
+epoch  53 | step  20034 | train loss 0.0533 | train time   1351s
+epoch  54 | step  20412 | train loss 0.0493 | train time   1376s
+epoch  55 | step  20790 | train loss 0.0555 | train time   1401s
+epoch  56 | step  21168 | train loss 0.0513 | train time   1426s
+epoch  57 | step  21546 | train loss 0.0467 | train time   1451s
+epoch  58 | step  21924 | train loss 0.0443 | train time   1476s
+epoch  59 | step  22302 | train loss 0.0496 | train time   1502s
+epoch  60 | step  22680 | train loss 0.0401 | train time   1526s
+epoch  61 | step  23058 | train loss 0.0376 | train time   1551s
+epoch  62 | step  23436 | train loss 0.0415 | train time   1576s
+epoch  63 | step  23814 | train loss 0.0389 | train time   1601s
+epoch  64 | step  24192 | train loss 0.0355 | train time   1626s
+epoch  65 | step  24570 | train loss 0.0380 | train time   1651s
+epoch  66 | step  24948 | train loss 0.0330 | train time   1675s
+epoch  67 | step  25326 | train loss 0.0330 | train time   1700s
+epoch  68 | step  25704 | train loss 0.0324 | train time   1725s
+epoch  69 | step  26082 | train loss 0.0303 | train time   1750s
+epoch  70 | step  26460 | train loss 0.0298 | train time   1775s
+epoch  71 | step  26838 | train loss 0.0292 | train time   1800s
+epoch  72 | step  27216 | train loss 0.0288 | train time   1824s
+epoch  73 | step  27594 | train loss 0.0267 | train time   1849s
+epoch  74 | step  27972 | train loss 0.0299 | train time   1874s
+epoch  75 | step  28350 | train loss 0.0260 | train time   1900s
+epoch  76 | step  28728 | train loss 0.0234 | train time   1925s
+epoch  77 | step  29106 | train loss 0.0270 | train time   1950s
+epoch  78 | step  29484 | train loss 0.0211 | train time   1975s
+epoch  79 | step  29862 | train loss 0.0232 | train time   2000s
+epoch  80 | step  30240 | train loss 0.0230 | train time   2025s
+epoch  81 | step  30618 | train loss 0.0237 | train time   2050s
+epoch  82 | step  30996 | train loss 0.0202 | train time   2075s
+epoch  83 | step  31374 | train loss 0.0211 | train time   2100s
+epoch  84 | step  31752 | train loss 0.0195 | train time   2126s
+epoch  85 | step  32130 | train loss 0.0184 | train time   2151s
+epoch  86 | step  32508 | train loss 0.0192 | train time   2175s
+epoch  87 | step  32886 | train loss 0.0200 | train time   2201s
+epoch  88 | step  33264 | train loss 0.0167 | train time   2226s
+epoch  89 | step  33642 | train loss 0.0168 | train time   2251s
+epoch  90 | step  34020 | train loss 0.0144 | train time   2276s
+epoch  91 | step  34398 | train loss 0.0146 | train time   2301s
+epoch  92 | step  34776 | train loss 0.0158 | train time   2326s
+epoch  93 | step  35154 | train loss 0.0153 | train time   2351s
+epoch  94 | step  35532 | train loss 0.0146 | train time   2376s
+epoch  95 | step  35910 | train loss 0.0138 | train time   2400s
+epoch  96 | step  36288 | train loss 0.0140 | train time   2425s
+epoch  97 | step  36666 | train loss 0.0133 | train time   2450s
+epoch  98 | step  37044 | train loss 0.0129 | train time   2475s
+epoch  99 | step  37422 | train loss 0.0128 | train time   2500s
+epoch 100 | step  37800 | train loss 0.0119 | train time   2525s
+epoch 101 | step  38178 | train loss 0.0109 | train time   2550s
+epoch 102 | step  38556 | train loss 0.0112 | train time   2575s
+epoch 103 | step  38934 | train loss 0.0110 | train time   2600s
+epoch 104 | step  39312 | train loss 0.0111 | train time   2625s
+epoch 105 | step  39690 | train loss 0.0117 | train time   2650s
+epoch 106 | step  40068 | train loss 0.0113 | train time   2676s
+epoch 107 | step  40446 | train loss 0.0099 | train time   2701s
+epoch 108 | step  40824 | train loss 0.0096 | train time   2726s
+epoch 109 | step  41202 | train loss 0.0093 | train time   2751s
+epoch 110 | step  41580 | train loss 0.0099 | train time   2776s
+epoch 111 | step  41958 | train loss 0.0094 | train time   2800s
+epoch 112 | step  42336 | train loss 0.0084 | train time   2826s
+epoch 113 | step  42714 | train loss 0.0095 | train time   2851s
+epoch 114 | step  43092 | train loss 0.0083 | train time   2876s
+epoch 115 | step  43470 | train loss 0.0077 | train time   2901s
+epoch 116 | step  43848 | train loss 0.0074 | train time   2926s
+epoch 117 | step  44226 | train loss 0.0068 | train time   2951s
+epoch 118 | step  44604 | train loss 0.0070 | train time   2976s
+epoch 119 | step  44982 | train loss 0.0076 | train time   3002s
+epoch 120 | step  45360 | train loss 0.0074 | train time   3026s
+epoch 121 | step  45738 | train loss 0.0064 | train time   3052s
+epoch 122 | step  46116 | train loss 0.0069 | train time   3077s
+epoch 123 | step  46494 | train loss 0.0064 | train time   3102s
+epoch 124 | step  46872 | train loss 0.0062 | train time   3127s
+epoch 125 | step  47250 | train loss 0.0061 | train time   3152s
+epoch 126 | step  47628 | train loss 0.0062 | train time   3178s
+epoch 127 | step  48006 | train loss 0.0055 | train time   3203s
+epoch 128 | step  48384 | train loss 0.0057 | train time   3229s
+epoch 129 | step  48762 | train loss 0.0053 | train time   3253s
+epoch 130 | step  49140 | train loss 0.0056 | train time   3278s
+epoch 131 | step  49518 | train loss 0.0049 | train time   3303s
+epoch 132 | step  49896 | train loss 0.0052 | train time   3328s
+epoch 133 | step  50274 | train loss 0.0051 | train time   3353s
+epoch 134 | step  50652 | train loss 0.0048 | train time   3378s
+epoch 135 | step  51030 | train loss 0.0047 | train time   3402s
+epoch 136 | step  51408 | train loss 0.0047 | train time   3427s
+epoch 137 | step  51786 | train loss 0.0046 | train time   3452s
+epoch 138 | step  52164 | train loss 0.0047 | train time   3477s
+epoch 139 | step  52542 | train loss 0.0046 | train time   3502s
+epoch 140 | step  52920 | train loss 0.0044 | train time   3528s
+epoch 141 | step  53298 | train loss 0.0041 | train time   3552s
+epoch 142 | step  53676 | train loss 0.0042 | train time   3578s
+epoch 143 | step  54054 | train loss 0.0044 | train time   3603s
+epoch 144 | step  54432 | train loss 0.0039 | train time   3628s
+epoch 145 | step  54810 | train loss 0.0042 | train time   3653s
+epoch 146 | step  55188 | train loss 0.0040 | train time   3678s
+epoch 147 | step  55566 | train loss 0.0039 | train time   3703s
+epoch 148 | step  55944 | train loss 0.0039 | train time   3728s
+epoch 149 | step  56322 | train loss 0.0036 | train time   3753s
+epoch 150 | step  56700 | train loss 0.0035 | train time   3778s
+epoch 151 | step  57078 | train loss 0.0038 | train time   3803s
+epoch 152 | step  57456 | train loss 0.0035 | train time   3829s
+epoch 153 | step  57834 | train loss 0.0033 | train time   3854s
+epoch 154 | step  58212 | train loss 0.0034 | train time   3879s
+epoch 155 | step  58590 | train loss 0.0034 | train time   3904s
+epoch 156 | step  58968 | train loss 0.0033 | train time   3929s
+epoch 157 | step  59346 | train loss 0.0033 | train time   3954s
+epoch 158 | step  59724 | train loss 0.0032 | train time   3979s
+epoch 159 | step  60102 | train loss 0.0032 | train time   4005s
+epoch 160 | step  60480 | train loss 0.0032 | train time   4030s
+epoch 161 | step  60858 | train loss 0.0031 | train time   4055s
+epoch 162 | step  61236 | train loss 0.0032 | train time   4081s
+epoch 163 | step  61614 | train loss 0.0031 | train time   4106s
+epoch 164 | step  61992 | train loss 0.0033 | train time   4131s
+epoch 165 | step  62370 | train loss 0.0030 | train time   4157s
+epoch 166 | step  62748 | train loss 0.0030 | train time   4182s
+epoch 167 | step  63126 | train loss 0.0029 | train time   4207s
+epoch 168 | step  63504 | train loss 0.0029 | train time   4233s
+epoch 169 | step  63882 | train loss 0.0029 | train time   4258s
+epoch 170 | step  64260 | train loss 0.0029 | train time   4283s
+epoch 171 | step  64638 | train loss 0.0029 | train time   4308s
+epoch 172 | step  65016 | train loss 0.0029 | train time   4333s
+epoch 173 | step  65394 | train loss 0.0029 | train time   4359s
+epoch 174 | step  65772 | train loss 0.0028 | train time   4384s
+epoch 175 | step  66150 | train loss 0.0031 | train time   4410s
+epoch 176 | step  66528 | train loss 0.0030 | train time   4435s
+epoch 177 | step  66906 | train loss 0.0029 | train time   4460s
+epoch 178 | step  67284 | train loss 0.0028 | train time   4486s
+epoch 179 | step  67504 | train loss 0.0031 | train time   4500s
+---
+val_miou:         0.773109
+val_miou8:        0.716649
+val_acc:          0.908146
+val_loss:         1.023668
+training_seconds: 4500.0
+total_seconds:    4510.8
+peak_vram_mb:     1453.2
+num_epochs:       179
+num_steps:        67504
+num_params_M:     3.67
+iou_ExtrudeSide: 0.8803
+iou_ExtrudeEnd: 0.8855
+iou_CutSide: 0.6746
+iou_CutEnd: 0.6030
+iou_Fillet: 0.8357
+iou_Chamfer: 0.8419
+iou_RevolveSide: 0.6908
+iou_RevolveEnd: 0.3214
+--- test (5360 parts)
+test_miou:        0.798914
+test_miou8:       0.745753
+test_acc:         0.917601
+test_iou_ExtrudeSide: 0.8956
+test_iou_ExtrudeEnd: 0.8920
+test_iou_CutSide: 0.7060
+test_iou_CutEnd: 0.6807
+test_iou_Fillet: 0.8384
+test_iou_Chamfer: 0.8307
+test_iou_RevolveSide: 0.7490
+test_iou_RevolveEnd: 0.3736

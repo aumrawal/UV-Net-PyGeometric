@@ -1,0 +1,45 @@
+device cuda | 24215 training parts | 3,665,164 parameters | budget 600s
+/usr/local/lib/python3.13/dist-packages/torch_geometric/utils/_scatter.py:91: UserWarning: The usage of `scatter(reduce='max')` can be accelerated via the 'torch-scatter' package, but it was not found
+  warnings.warn(
+epoch   1 | step    378 | train loss 1.1261 | train time     36s
+epoch   2 | step    756 | train loss 0.5626 | train time     65s
+epoch   3 | step   1134 | train loss 0.4829 | train time     92s
+epoch   4 | step   1512 | train loss 0.4392 | train time    119s
+epoch   5 | step   1890 | train loss 0.4164 | train time    146s
+epoch   6 | step   2268 | train loss 0.3948 | train time    173s
+epoch   7 | step   2646 | train loss 0.3791 | train time    199s
+epoch   8 | step   3024 | train loss 0.3579 | train time    226s
+epoch   9 | step   3402 | train loss 0.3423 | train time    252s
+epoch  10 | step   3780 | train loss 0.3313 | train time    278s
+epoch  11 | step   4158 | train loss 0.3166 | train time    303s
+epoch  12 | step   4536 | train loss 0.2991 | train time    329s
+epoch  13 | step   4914 | train loss 0.2871 | train time    355s
+epoch  14 | step   5292 | train loss 0.2732 | train time    381s
+epoch  15 | step   5670 | train loss 0.2627 | train time    407s
+epoch  16 | step   6048 | train loss 0.2540 | train time    433s
+epoch  17 | step   6426 | train loss 0.2408 | train time    459s
+epoch  18 | step   6804 | train loss 0.2313 | train time    484s
+epoch  19 | step   7182 | train loss 0.2218 | train time    510s
+epoch  20 | step   7560 | train loss 0.2103 | train time    536s
+epoch  21 | step   7938 | train loss 0.2104 | train time    562s
+epoch  22 | step   8316 | train loss 0.2044 | train time    587s
+epoch  23 | step   8504 | train loss 0.2020 | train time    600s
+---
+val_miou:         0.766945
+val_miou8:        0.698104
+val_acc:          0.902198
+val_loss:         0.300315
+training_seconds: 600.1
+total_seconds:    606.2
+peak_vram_mb:     1315.4
+num_epochs:       23
+num_steps:        8504
+num_params_M:     3.67
+iou_ExtrudeSide: 0.8712
+iou_ExtrudeEnd: 0.8827
+iou_CutSide: 0.6468
+iou_CutEnd: 0.6207
+iou_Fillet: 0.8311
+iou_Chamfer: 0.8429
+iou_RevolveSide: 0.6733
+iou_RevolveEnd: 0.2162

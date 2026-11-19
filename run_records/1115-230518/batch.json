@@ -1,0 +1,30 @@
+{
+ "batch": "1115-230518",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "67c7d15",
+   "subject": "Log face degree added to the face embedding (on mean aggregation)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "b9ba178",
+   "subject": "Max + mean pooling for the part embedding (on mean aggregation)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "1b002df",
+   "subject": "Peak LR 3e-3 instead of 2e-3 (on mean aggregation)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

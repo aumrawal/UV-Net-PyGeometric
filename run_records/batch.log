@@ -1,0 +1,914 @@
+batch 1115-104033: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 9 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.1 min] RUNNING
+  [  5.1 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.2 min] RUNNING
+  [  8.2 min] RUNNING
+  [  9.2 min] RUNNING
+  [ 10.2 min] RUNNING
+  [ 11.3 min] RUNNING
+  [ 12.3 min] RUNNING
+  [ 13.3 min] RUNNING
+  [ 14.4 min] RUNNING
+  [ 15.4 min] RUNNING
+  [ 16.4 min] RUNNING
+  [ 17.4 min] RUNNING
+  [ 18.5 min] RUNNING
+  [ 19.5 min] RUNNING
+  [ 20.5 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou  val_acc mem_gb epochs  description
+68dd24c-s0     ok          0.6770   0.8980    1.3     23  Face size input: log area + bounding-box extent (face_attr) added to the face embedding
+3ccc6b5-s0     ok          0.6745   0.8954    1.5     22  Local convexity at the edge midpoint (nearest-grid-point normals) added to the edge features
+68dd24c-s1     ok          0.6724   0.8991    1.4     23  Face size input: log area + bounding-box extent (face_attr) added to the face embedding
+3ccc6b5-s1     ok          0.6699   0.8990    1.2     23  Local convexity at the edge midpoint (nearest-grid-point normals) added to the edge features
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1115-104033/output
+batch 1115-162017: 6 runs x 600s on NvidiaTeslaT4
+Kernel version 10 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.2 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.4 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.5 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.6 min] RUNNING
+  [ 17.6 min] RUNNING
+  [ 18.6 min] RUNNING
+  [ 19.6 min] RUNNING
+  [ 20.7 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+5df86c8-s0     ok          0.7590  0.6710   0.8996    1.5     24  AdamW with weight decay 0.05 (on local convexity)
+afed89d-s0     ok          0.7555  0.6710   0.8968    1.3     24  Face size input: log area + bounding-box extent (face_attr) added to the face embedding (on local convexity)
+0659fff-s1     ok          0.7533  0.6768   0.8961    1.4     23  Surface and curve embeddings 128 instead of 64 (on local convexity)
+5df86c8-s1     ok          0.7521  0.6723   0.8944    1.2     24  AdamW with weight decay 0.05 (on local convexity)
+0659fff-s0     ok          0.7516  0.6735   0.8972    1.7     23  Surface and curve embeddings 128 instead of 64 (on local convexity)
+afed89d-s1     ok          0.7486  0.6770   0.8954    1.3     24  Face size input: log area + bounding-box extent (face_attr) added to the face embedding (on local convexity)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1115-162017/output
+batch 1115-174718: 6 runs x 600s on NvidiaTeslaT4
+Kernel version 11 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] QUEUED
+  [ 41.8 min] QUEUED
+  [ 70.7 min] QUEUED
+  [116.8 min] RUNNING
+kernel finished: COMPLETE
+  kaggle kernels output: attempt 1/6 failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+  kaggle kernels output: attempt 2/6 failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+  kaggle kernels output: attempt 3/6 failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+e11e355-s1     ok          0.7612  0.6933   0.9022    1.3     22  Jumping knowledge: the classifier sees the face embedding of every message-passing layer
+b8b03ed-s1     ok          0.7597  0.6904   0.8997    1.4     23  NNConv root weight: each face keeps a direct self-connection in message passing
+b8b03ed-s0     ok          0.7583  0.6838   0.8984    1.3     22  NNConv root weight: each face keeps a direct self-connection in message passing
+e11e355-s0     ok          0.7538  0.6766   0.8980    1.3     23  Jumping knowledge: the classifier sees the face embedding of every message-passing layer
+9baf1f0-s0     ok          0.7409  0.6545   0.8898    1.6     21  3 rounds of message passing instead of 2 (on hidden 128 + local convexity)
+9baf1f0-s1     ok          0.0742  0.0649   0.5194    1.6     20  3 rounds of message passing instead of 2 (on hidden 128 + local convexity)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1115-174718/output
+batch 1115-215834: 6 runs x 600s on NvidiaTeslaT4
+Kernel version 12 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.4 min] RUNNING
+  [ 13.4 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.5 min] RUNNING
+  [ 17.5 min] RUNNING
+  [ 18.6 min] RUNNING
+  [ 19.6 min] RUNNING
+  [ 20.6 min] RUNNING
+  [ 21.6 min] RUNNING
+  [ 22.7 min] RUNNING
+  [ 23.7 min] RUNNING
+  [ 24.7 min] RUNNING
+  [ 25.7 min] RUNNING
+  [ 26.8 min] RUNNING
+  [ 27.8 min] RUNNING
+  [ 28.8 min] RUNNING
+  [ 29.9 min] RUNNING
+  [ 30.9 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+7c99b27-s0     ok          0.7585  0.6945   0.8992    1.2     23  Jumping knowledge (on root weight)
+7c99b27-s1     ok          0.7580  0.6937   0.8992    1.3     23  Jumping knowledge (on root weight)
+2512686-s0     ok          0.7555  0.6761   0.8972    1.9     19  Message passing in fp32 (on root weight): an fp16 overflow in NNConv poisons the BatchNorm running stats
+2512686-s1     ok          0.7539  0.6826   0.8949    2.1     19  Message passing in fp32 (on root weight): an fp16 overflow in NNConv poisons the BatchNorm running stats
+765236f-s1     ok          0.7450  0.6555   0.8912    2.5     15  3 rounds of message passing, in fp32 (on root weight)
+765236f-s0     ok          0.7353  0.6470   0.8877    2.4     15  3 rounds of message passing, in fp32 (on root weight)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1115-215834/output
+batch 1115-223151: 6 runs x 600s on NvidiaTeslaT4
+Kernel version 13 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.4 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.5 min] RUNNING
+  [ 17.6 min] RUNNING
+  [ 18.6 min] RUNNING
+  [ 19.6 min] RUNNING
+  [ 20.6 min] RUNNING
+  [ 21.7 min] RUNNING
+  [ 22.7 min] RUNNING
+  [ 23.7 min] RUNNING
+  [ 24.7 min] RUNNING
+  [ 25.7 min] RUNNING
+  [ 26.8 min] RUNNING
+  [ 27.8 min] RUNNING
+  [ 28.8 min] RUNNING
+  [ 29.9 min] RUNNING
+  [ 30.9 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+c68e4e2-s1     ok          0.7681  0.6968   0.9017    1.4     24  Mean instead of sum aggregation in NNConv (on root weight)
+c68e4e2-s0     ok          0.7632  0.6888   0.9014    1.3     24  Mean instead of sum aggregation in NNConv (on root weight)
+78a8414-s1     ok          0.7591  0.6792   0.8996    1.4     24  Classifier dropout 0.5 instead of 0.3 (on root weight)
+78a8414-s0     ok          0.7555  0.6726   0.8998    1.3     24  Classifier dropout 0.5 instead of 0.3 (on root weight)
+300c13c-s0     ok          0.7517  0.6753   0.8993    0.9     19  Batch size 32 instead of 64 (on root weight)
+300c13c-s1     ok          0.7506  0.6751   0.8963    0.9     19  Batch size 32 instead of 64 (on root weight)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1115-223151/output
+batch 1115-230518: 6 runs x 600s on NvidiaTeslaT4
+Kernel version 14 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] QUEUED
+  [  1.1 min] QUEUED
+  [  2.1 min] QUEUED
+  [  3.1 min] QUEUED
+  [  4.2 min] QUEUED
+  [  5.2 min] QUEUED
+  [  6.2 min] QUEUED
+  [  7.3 min] QUEUED
+  [  8.3 min] QUEUED
+  [  9.3 min] QUEUED
+  [ 10.4 min] QUEUED
+  [ 11.4 min] QUEUED
+  [ 12.4 min] QUEUED
+  [ 13.4 min] QUEUED
+  [ 14.5 min] QUEUED
+  [ 15.5 min] QUEUED
+  [ 16.5 min] QUEUED
+  [ 17.6 min] QUEUED
+  [ 18.6 min] QUEUED
+  [ 19.6 min] QUEUED
+  [ 20.7 min] QUEUED
+  [ 21.7 min] QUEUED
+  [ 22.7 min] QUEUED
+  [ 23.8 min] QUEUED
+  [ 24.8 min] QUEUED
+  [ 25.8 min] QUEUED
+  [ 26.9 min] QUEUED
+  [ 27.9 min] QUEUED
+  [ 28.9 min] QUEUED
+  [ 29.9 min] QUEUED
+  [ 31.0 min] QUEUED
+  [ 32.0 min] QUEUED
+  [ 33.0 min] QUEUED
+  [ 34.1 min] QUEUED
+  [ 35.1 min] QUEUED
+  [ 36.1 min] QUEUED
+  [ 37.1 min] QUEUED
+  [ 38.2 min] QUEUED
+  [ 39.2 min] QUEUED
+  [ 40.2 min] QUEUED
+  [ 41.3 min] QUEUED
+  [ 42.3 min] QUEUED
+  [ 43.3 min] QUEUED
+  [ 44.3 min] QUEUED
+  [ 45.4 min] QUEUED
+  [ 46.4 min] QUEUED
+  [ 47.4 min] QUEUED
+  [ 48.5 min] QUEUED
+  [ 49.5 min] QUEUED
+  [ 50.5 min] QUEUED
+  [ 51.5 min] QUEUED
+  [ 52.6 min] QUEUED
+  [ 53.6 min] QUEUED
+  [ 54.6 min] QUEUED
+  [ 55.6 min] QUEUED
+  [ 56.7 min] QUEUED
+  [ 57.7 min] QUEUED
+  [ 58.7 min] QUEUED
+  [ 59.8 min] QUEUED
+  [ 60.8 min] QUEUED
+  [ 61.8 min] QUEUED
+  [ 62.8 min] QUEUED
+  [ 63.9 min] QUEUED
+  [ 64.9 min] QUEUED
+  [ 65.9 min] QUEUED
+  [ 67.0 min] QUEUED
+  [ 68.0 min] QUEUED
+  [ 69.0 min] QUEUED
+  [ 70.0 min] QUEUED
+  [ 71.1 min] QUEUED
+  [ 72.1 min] QUEUED
+  [ 73.1 min] QUEUED
+  [ 74.2 min] QUEUED
+  [ 75.2 min] QUEUED
+  [ 76.2 min] QUEUED
+  [ 77.3 min] QUEUED
+  [ 78.3 min] QUEUED
+  [ 79.3 min] QUEUED
+  [ 80.4 min] QUEUED
+  [ 81.4 min] QUEUED
+  [ 82.4 min] QUEUED
+  [ 83.5 min] QUEUED
+  [ 84.5 min] QUEUED
+  [ 85.5 min] QUEUED
+  [ 86.6 min] QUEUED
+  [ 87.6 min] QUEUED
+  [ 88.7 min] QUEUED
+  [ 89.7 min] QUEUED
+  [ 90.8 min] QUEUED
+  [ 91.8 min] QUEUED
+  [ 92.9 min] QUEUED
+  [ 93.9 min] QUEUED
+  [ 94.9 min] QUEUED
+  [ 95.9 min] RUNNING
+  [ 97.0 min] RUNNING
+  [ 98.1 min] RUNNING
+  [ 99.1 min] RUNNING
+  [100.1 min] RUNNING
+  [101.2 min] RUNNING
+  [102.2 min] RUNNING
+  [103.2 min] RUNNING
+  [104.3 min] RUNNING
+  [105.4 min] RUNNING
+  [106.4 min] RUNNING
+  [107.4 min] RUNNING
+  [108.5 min] RUNNING
+  [109.5 min] RUNNING
+  [110.5 min] RUNNING
+  [111.6 min] RUNNING
+  [112.7 min] RUNNING
+  [113.7 min] RUNNING
+  [114.7 min] RUNNING
+  [115.8 min] RUNNING
+  [116.9 min] RUNNING
+  [117.9 min] RUNNING
+  [118.9 min] RUNNING
+  [120.0 min] RUNNING
+  [121.0 min] RUNNING
+  [122.0 min] RUNNING
+  [123.1 min] RUNNING
+  [124.1 min] RUNNING
+  [125.1 min] RUNNING
+  [126.2 min] RUNNING
+  [127.2 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+67c7d15-s1     ok          0.7697  0.7090   0.9045    1.2     23  Log face degree added to the face embedding (on mean aggregation)
+67c7d15-s0     ok          0.7664  0.6997   0.9038    1.2     23  Log face degree added to the face embedding (on mean aggregation)
+b9ba178-s0     ok          0.7629  0.6928   0.9021    1.3     23  Max + mean pooling for the part embedding (on mean aggregation)
+1b002df-s0     ok          0.7620  0.6917   0.9025    1.3     23  Peak LR 3e-3 instead of 2e-3 (on mean aggregation)
+1b002df-s1     ok          0.7576  0.6890   0.8995    1.4     23  Peak LR 3e-3 instead of 2e-3 (on mean aggregation)
+b9ba178-s1     ok          0.7558  0.6979   0.8998    1.4     23  Max + mean pooling for the part embedding (on mean aggregation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1115-230518/output
+batch 1116-011430: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 15 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.2 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.4 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.6 min] RUNNING
+  [ 17.6 min] RUNNING
+  [ 18.6 min] RUNNING
+  [ 19.7 min] RUNNING
+  [ 20.7 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+c68e4e2-s3     ok          0.7693  0.7059   0.9061    1.4     24  Mean instead of sum aggregation in NNConv (on root weight)
+67c7d15-s2     ok          0.7686  0.7073   0.9014    1.3     24  Log face degree added to the face embedding (on mean aggregation)
+67c7d15-s3     ok          0.7681  0.6955   0.9032    1.3     24  Log face degree added to the face embedding (on mean aggregation)
+c68e4e2-s2     ok          0.7667  0.7033   0.9015    1.2     24  Mean instead of sum aggregation in NNConv (on root weight)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-011430/output
+batch 1116-013751: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 16 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.4 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.5 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.6 min] RUNNING
+  [ 16.6 min] RUNNING
+  [ 17.6 min] RUNNING
+  [ 18.6 min] RUNNING
+  [ 19.7 min] RUNNING
+  [ 20.7 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+1fdedee-s0     ok          0.7783  0.7216   0.9096    1.3     23  Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)
+1fdedee-s1     ok          0.7728  0.7149   0.9065    1.3     24  Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)
+1dc7325-s1     ok          0.7709  0.7066   0.9027    1.3     22  Face grids centred on the face centroid, centroid fed separately (on mean aggregation)
+1dc7325-s0     ok          0.7694  0.7052   0.9061    1.3     23  Face grids centred on the face centroid, centroid fed separately (on mean aggregation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-013751/output
+batch 1116-020102: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 17 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.2 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.5 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.6 min] RUNNING
+  [ 17.6 min] RUNNING
+  [ 18.6 min] RUNNING
+  [ 19.7 min] RUNNING
+  [ 20.7 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+fc942fe-s0     ok          0.4072  0.3589   0.5721    1.3     24  Face grids also scale-normalised (RMS radius), log size fed separately (on centring)
+e11a833-s0     ok          0.3834  0.3371   0.5250    1.3     24  Face and edge grids also scale-normalised, log sizes fed separately (on centring)
+e11a833-s1     ok          0.3827  0.3388   0.5249    1.3     24  Face and edge grids also scale-normalised, log sizes fed separately (on centring)
+fc942fe-s1     ok          0.3055  0.2678   0.3917    1.3     24  Face grids also scale-normalised (RMS radius), log size fed separately (on centring)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-020102/output
+batch 1116-022403: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 18 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.2 min] RUNNING
+  [  4.3 min] RUNNING
+  [  5.3 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.4 min] RUNNING
+  [  9.4 min] RUNNING
+  [ 10.5 min] RUNNING
+  [ 11.5 min] RUNNING
+  [ 12.6 min] RUNNING
+  [ 13.6 min] RUNNING
+  [ 14.6 min] RUNNING
+  [ 15.7 min] RUNNING
+  [ 16.7 min] RUNNING
+  [ 17.7 min] RUNNING
+  [ 18.7 min] RUNNING
+  [ 19.8 min] RUNNING
+  [ 20.8 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+e09d1fb-s1     ok          0.7864  0.7197   0.9117    1.3     23  Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+9c22fd8-s0     ok          0.7829  0.7272   0.9126    1.3     23  Face grids also scale-normalised (RMS radius), log size fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+e09d1fb-s0     ok          0.7786  0.7254   0.9051    1.3     23  Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+9c22fd8-s1     ok          0.7715  0.7059   0.9064    1.3     23  Face grids also scale-normalised (RMS radius), log size fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-022403/output
+batch 1116-024648: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 19 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.3 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.4 min] RUNNING
+  [  9.4 min] RUNNING
+  [ 10.5 min] RUNNING
+  [ 11.5 min] RUNNING
+  [ 12.5 min] RUNNING
+  [ 13.6 min] RUNNING
+  [ 14.6 min] RUNNING
+  [ 15.6 min] RUNNING
+  [ 16.7 min] RUNNING
+  [ 17.7 min] RUNNING
+  [ 18.7 min] RUNNING
+  [ 19.8 min] RUNNING
+  [ 20.8 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+e09d1fb-s3     ok          0.7883  0.7248   0.9126    1.3     23  Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+e09d1fb-s2     ok          0.7827  0.7185   0.9093    1.3     23  Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+1fdedee-s3     ok          0.7803  0.7223   0.9109    1.3     23  Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)
+1fdedee-s2     ok          0.7752  0.7138   0.9069    1.4     23  Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-024648/output
+batch 1116-031015: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 20 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.5 min] RUNNING
+  [ 12.5 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.6 min] RUNNING
+  [ 15.6 min] RUNNING
+  [ 16.7 min] RUNNING
+  [ 17.7 min] RUNNING
+  [ 18.7 min] RUNNING
+  [ 19.8 min] RUNNING
+  [ 20.8 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+1825f52-s1     ok          0.7669  0.6981   0.9022    1.3     23  Random 90-degree rotation per batch, on the GPU (on scale normalisation)
+1825f52-s0     ok          0.7665  0.6976   0.9004    1.3     23  Random 90-degree rotation per batch, on the GPU (on scale normalisation)
+c79c085-s0     ok          0.7249  0.6533   0.8837    1.3     23  Uniform random rotation per batch, on the GPU (on scale normalisation)
+c79c085-s1     ok          0.7200  0.6567   0.8837    1.3     23  Uniform random rotation per batch, on the GPU (on scale normalisation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-031015/output
+batch 1116-033343: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 21 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.2 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.4 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.5 min] RUNNING
+  [ 12.5 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.6 min] RUNNING
+  [ 15.6 min] RUNNING
+  [ 16.7 min] RUNNING
+  [ 17.7 min] RUNNING
+  [ 18.7 min] RUNNING
+  [ 19.8 min] RUNNING
+  [ 20.8 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+2dc2f32-s1     ok          0.7853  0.7216   0.9108    1.3     22  Convexity at every point along the edge as 3 extra curve-CNN channels (on scale normalisation)
+49adfb7-s0     ok          0.7851  0.7240   0.9114    1.4     22  Surface and curve embeddings 128 instead of 64 (on scale normalisation)
+2dc2f32-s0     ok          0.7814  0.7131   0.9088    1.2     22  Convexity at every point along the edge as 3 extra curve-CNN channels (on scale normalisation)
+49adfb7-s1     ok          0.7764  0.7205   0.9080    1.6     22  Surface and curve embeddings 128 instead of 64 (on scale normalisation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-033343/output
+batch 1116-035651: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 22 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.2 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.4 min] RUNNING
+  [  8.4 min] RUNNING
+  [  9.5 min] RUNNING
+  [ 10.5 min] RUNNING
+  [ 11.5 min] RUNNING
+  [ 12.6 min] RUNNING
+  [ 13.6 min] RUNNING
+  [ 14.7 min] RUNNING
+  [ 15.7 min] RUNNING
+  [ 16.7 min] RUNNING
+  [ 17.8 min] RUNNING
+  [ 18.8 min] RUNNING
+  [ 19.8 min] RUNNING
+  [ 20.9 min] RUNNING
+  [ 21.9 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+067e881-s1     ok          0.7818  0.7210   0.9122    1.3     23  Surface CNN pools only over grid points inside the trim mask (on scale normalisation)
+067e881-s0     ok          0.7773  0.7203   0.9097    1.3     23  Surface CNN pools only over grid points inside the trim mask (on scale normalisation)
+d6c9871-s1     ok          0.7566  0.6620   0.9014    1.3      8  cudnn.benchmark on (on scale normalisation)
+d6c9871-s0     ok          0.7487  0.6551   0.8984    1.3      8  cudnn.benchmark on (on scale normalisation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-035651/output
+batch 1116-105724: 2 runs x 4500s on NvidiaTeslaT4
+Kernel version 23 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.0 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.3 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.4 min] RUNNING
+  [ 13.4 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.6 min] RUNNING
+  [ 17.6 min] RUNNING
+  [ 18.7 min] RUNNING
+  [ 19.7 min] RUNNING
+  [ 20.7 min] RUNNING
+  [ 21.7 min] RUNNING
+  [ 22.8 min] RUNNING
+  [ 23.8 min] RUNNING
+  [ 24.8 min] RUNNING
+  [ 25.9 min] RUNNING
+  [ 26.9 min] RUNNING
+  [ 27.9 min] RUNNING
+  [ 28.9 min] RUNNING
+  [ 30.0 min] RUNNING
+  [ 31.0 min] RUNNING
+  [ 32.0 min] RUNNING
+  [ 33.1 min] RUNNING
+  [ 34.1 min] RUNNING
+  [ 35.1 min] RUNNING
+  [ 36.2 min] RUNNING
+  [ 37.2 min] RUNNING
+  [ 38.2 min] RUNNING
+  [ 39.3 min] RUNNING
+  [ 40.3 min] RUNNING
+  [ 41.3 min] RUNNING
+  [ 42.3 min] RUNNING
+  [ 43.4 min] RUNNING
+  [ 44.4 min] RUNNING
+  [ 45.5 min] RUNNING
+  [ 46.5 min] RUNNING
+  [ 47.5 min] RUNNING
+  [ 48.5 min] RUNNING
+  [ 49.5 min] RUNNING
+  [ 50.6 min] RUNNING
+  [ 51.6 min] RUNNING
+  [ 52.6 min] RUNNING
+  [ 53.7 min] RUNNING
+  [ 54.7 min] RUNNING
+  [ 55.7 min] RUNNING
+  [ 56.7 min] RUNNING
+  [ 57.8 min] RUNNING
+  [ 58.8 min] RUNNING
+  [ 59.8 min] RUNNING
+  [ 60.8 min] RUNNING
+  [ 61.9 min] RUNNING
+  [ 62.9 min] RUNNING
+  [ 63.9 min] RUNNING
+  [ 64.9 min] RUNNING
+  [ 66.0 min] RUNNING
+  [ 67.0 min] RUNNING
+  [ 68.0 min] RUNNING
+  [ 69.1 min] RUNNING
+  [ 70.1 min] RUNNING
+  [ 71.1 min] RUNNING
+  [ 72.1 min] RUNNING
+  [ 73.2 min] RUNNING
+  [ 74.2 min] RUNNING
+  [ 75.2 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+e09d1fb-s0     ok          0.7845  0.7227   0.9113    1.3    169  Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+e09d1fb-s1     ok          0.7826  0.7340   0.9121    1.4    170  Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-105724/output
+batch 1116-183942: 6 runs x 600s on NvidiaTeslaT4
+Kernel version 24 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.2 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.3 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.4 min] RUNNING
+  [ 13.4 min] RUNNING
+  [ 14.4 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.5 min] RUNNING
+  [ 17.5 min] RUNNING
+  [ 18.5 min] RUNNING
+  [ 19.6 min] RUNNING
+  [ 20.6 min] RUNNING
+  [ 21.6 min] RUNNING
+  [ 22.7 min] RUNNING
+  [ 23.7 min] RUNNING
+  [ 24.8 min] RUNNING
+  [ 25.8 min] RUNNING
+  [ 26.8 min] RUNNING
+  [ 27.8 min] RUNNING
+  [ 28.9 min] RUNNING
+  [ 29.9 min] RUNNING
+  [ 30.9 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+47f4521-s0     ok          0.7837  0.7268   0.9104    1.3     23  Augmentation: random per-part scaling of each axis in [0.8, 1.2] (on scale normalisation)
+c19b34d-s0     ok          0.7814  0.7205   0.9097    1.3     24  Augmentation: Gaussian point jitter, sigma 0.005 (on scale normalisation)
+47f4521-s1     ok          0.7771  0.7140   0.9075    1.3     23  Augmentation: random per-part scaling of each axis in [0.8, 1.2] (on scale normalisation)
+c19b34d-s1     ok          0.7737  0.7303   0.9079    1.3     24  Augmentation: Gaussian point jitter, sigma 0.005 (on scale normalisation)
+c5a48bc-s1     ok          0.7655  0.7048   0.8987    1.3     23  Augmentation: random per-part mirror flip of each axis (on scale normalisation)
+c5a48bc-s0     ok          0.7589  0.6900   0.8954    1.3     23  Augmentation: random per-part mirror flip of each axis (on scale normalisation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-183942/output
+batch 1116-215711: 2 runs x 4500s on NvidiaTeslaT4
+Kernel version 25 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.2 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.4 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.5 min] RUNNING
+  [ 12.5 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.6 min] RUNNING
+  [ 15.6 min] RUNNING
+  [ 16.6 min] RUNNING
+  [ 17.7 min] RUNNING
+  [ 18.7 min] RUNNING
+  [ 19.8 min] RUNNING
+  [ 20.8 min] RUNNING
+  [ 21.8 min] RUNNING
+  [ 22.9 min] RUNNING
+  [ 23.9 min] RUNNING
+  [ 25.0 min] RUNNING
+  [ 26.0 min] RUNNING
+  [ 27.0 min] RUNNING
+  [ 28.1 min] RUNNING
+  [ 29.1 min] RUNNING
+  [ 30.1 min] RUNNING
+  [ 31.2 min] RUNNING
+  [ 32.2 min] RUNNING
+  [ 33.2 min] RUNNING
+  [ 34.2 min] RUNNING
+  [ 35.3 min] RUNNING
+  [ 36.3 min] RUNNING
+  [ 37.4 min] RUNNING
+  [ 38.4 min] RUNNING
+  [ 39.4 min] RUNNING
+  [ 40.5 min] RUNNING
+  [ 41.5 min] RUNNING
+  [ 42.5 min] RUNNING
+  [ 43.5 min] RUNNING
+  [ 44.6 min] RUNNING
+  [ 45.6 min] RUNNING
+  [ 46.7 min] RUNNING
+  [ 47.7 min] RUNNING
+  [ 48.7 min] RUNNING
+  [ 49.8 min] RUNNING
+  [ 50.8 min] RUNNING
+  [ 51.8 min] RUNNING
+  [ 52.9 min] RUNNING
+  [ 53.9 min] RUNNING
+  [ 54.9 min] RUNNING
+  [ 55.9 min] RUNNING
+  [ 57.0 min] RUNNING
+  [ 58.0 min] RUNNING
+  [ 59.0 min] RUNNING
+  [ 60.1 min] RUNNING
+  [ 61.1 min] RUNNING
+  [ 62.1 min] RUNNING
+  [ 63.1 min] RUNNING
+  [ 64.2 min] RUNNING
+  [ 65.2 min] RUNNING
+  [ 66.2 min] RUNNING
+  [ 67.3 min] RUNNING
+  [ 68.3 min] RUNNING
+  [ 69.3 min] RUNNING
+  [ 70.4 min] RUNNING
+  [ 71.4 min] RUNNING
+  [ 72.4 min] RUNNING
+  [ 73.5 min] RUNNING
+  [ 74.5 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+47f4521-s0     ok          0.7814  0.7272   0.9098    1.3    179  Augmentation: random per-part scaling of each axis in [0.8, 1.2] (on scale normalisation)
+c5a48bc-s0     ok          0.7555  0.7102   0.8965    1.3    176  Augmentation: random per-part mirror flip of each axis (on scale normalisation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-215711/output
+batch 1116-231848: 2 runs x 4500s on NvidiaTeslaT4
+Kernel version 26 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.0 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.1 min] RUNNING
+  [  5.1 min] RUNNING
+  [  6.2 min] RUNNING
+  [  7.2 min] RUNNING
+  [  8.2 min] RUNNING
+  [  9.3 min] RUNNING
+  [ 10.3 min] RUNNING
+  [ 11.3 min] RUNNING
+  [ 12.4 min] RUNNING
+  [ 13.4 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.5 min] RUNNING
+  [ 16.5 min] RUNNING
+  [ 17.5 min] RUNNING
+  [ 18.6 min] RUNNING
+  [ 19.6 min] RUNNING
+  [ 20.6 min] RUNNING
+  [ 21.6 min] RUNNING
+  [ 22.7 min] RUNNING
+  [ 23.7 min] RUNNING
+  [ 24.7 min] RUNNING
+  [ 25.8 min] RUNNING
+  [ 26.8 min] RUNNING
+  [ 27.8 min] RUNNING
+  [ 28.8 min] RUNNING
+  [ 29.9 min] RUNNING
+  [ 30.9 min] RUNNING
+  [ 31.9 min] RUNNING
+  [ 33.0 min] RUNNING
+  [ 34.0 min] RUNNING
+  [ 35.1 min] RUNNING
+  [ 36.1 min] RUNNING
+  [ 37.1 min] RUNNING
+  [ 38.2 min] RUNNING
+  [ 39.2 min] RUNNING
+  [ 40.2 min] RUNNING
+  [ 41.2 min] RUNNING
+  [ 42.3 min] RUNNING
+  [ 43.3 min] RUNNING
+  [ 44.3 min] RUNNING
+  [ 45.4 min] RUNNING
+  [ 46.4 min] RUNNING
+  [ 47.5 min] RUNNING
+  [ 48.5 min] RUNNING
+  [ 49.5 min] RUNNING
+  [ 50.5 min] RUNNING
+  [ 51.6 min] RUNNING
+  [ 52.6 min] RUNNING
+  [ 53.6 min] RUNNING
+  [ 54.7 min] RUNNING
+  [ 55.7 min] RUNNING
+  [ 56.8 min] RUNNING
+  [ 57.8 min] RUNNING
+  [ 58.8 min] RUNNING
+  [ 59.9 min] RUNNING
+  [ 60.9 min] RUNNING
+  [ 61.9 min] RUNNING
+  [ 63.0 min] RUNNING
+  [ 64.0 min] RUNNING
+  [ 65.0 min] RUNNING
+  [ 66.1 min] RUNNING
+  [ 67.1 min] RUNNING
+  [ 68.1 min] RUNNING
+  [ 69.2 min] RUNNING
+  [ 70.2 min] RUNNING
+  [ 71.2 min] RUNNING
+  [ 72.3 min] RUNNING
+  [ 73.3 min] RUNNING
+  [ 74.3 min] RUNNING
+  [ 75.4 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+69b9bd9-s0     ok          0.7850  0.7286   0.9131    1.3    180  Final test: train e09d1fb, then score the official test split with prepare.evaluate's code and save the weights
+69b9bd9-s1     ok          0.7731  0.7166   0.9081    1.4    179  Final test: train e09d1fb, then score the official test split with prepare.evaluate's code and save the weights
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1116-231848/output
+batch 1119-100420: 4 runs x 600s on NvidiaTeslaT4
+Kernel version 27 successfully pushed.  Please check progress at https://www.kaggle.com/code/aumr1101/uvnet-ar-experiments
+  [  0.0 min] RUNNING
+  [  1.1 min] RUNNING
+  [  2.1 min] RUNNING
+  [  3.1 min] RUNNING
+  [  4.2 min] RUNNING
+  [  5.2 min] RUNNING
+  [  6.3 min] RUNNING
+  [  7.3 min] RUNNING
+  [  8.3 min] RUNNING
+  [  9.4 min] RUNNING
+  [ 10.4 min] RUNNING
+  [ 11.4 min] RUNNING
+  [ 12.4 min] RUNNING
+  [ 13.5 min] RUNNING
+  [ 14.5 min] RUNNING
+  [ 15.6 min] RUNNING
+  [ 16.6 min] RUNNING
+  [ 17.6 min] RUNNING
+  [ 18.7 min] RUNNING
+  [ 19.7 min] RUNNING
+  [ 20.7 min] RUNNING
+  [ 21.8 min] RUNNING
+  [ 22.8 min] RUNNING
+  [ 23.8 min] RUNNING
+kernel finished: COMPLETE
+
+GPUs: ['Tesla T4, 15360 MiB', 'Tesla T4, 15360 MiB']
+run            status    val_miou   miou8  val_acc mem_gb epochs  description
+c78bba4-s0     ok          0.7851  0.7231   0.9115    1.3     23  Inference report: fp16 inference accuracy, and fp32 vs fp16 forward time for hidden 64 and 128 (on scale normalisation)
+ccc9682-s1     ok          0.7839  0.7245   0.9095    1.2     25  Message-passing hidden size 64 instead of 128, with the inference report (on scale normalisation)
+ccc9682-s0     ok          0.7772  0.6977   0.9090    1.2     26  Message-passing hidden size 64 instead of 128, with the inference report (on scale normalisation)
+c78bba4-s1     ok          0.7733  0.7128   0.9090    1.3     24  Inference report: fp16 inference accuracy, and fp32 vs fp16 forward time for hidden 64 and 128 (on scale normalisation)
+
+Logs: /Users/aum/Desktop/Euclid I (recovered)/uvnet-autoresearch/runs/1119-100420/output

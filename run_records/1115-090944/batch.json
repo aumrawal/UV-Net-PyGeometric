@@ -1,0 +1,34 @@
+{
+ "batch": "1115-090944",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "c7a8ff8",
+   "subject": "Noise check: current best with seed + 1 (no other change)",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "ed0dc7b",
+   "subject": "Message-passing hidden size 128 instead of 64",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "0184956",
+   "subject": "Peak LR 4e-3 instead of 2e-3",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "56b6b7e",
+   "subject": "Random 90-degree rotation augmentation",
+   "seeds": [
+    0
+   ]
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "batch": "1116-024648",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "1fdedee",
+   "subject": "Face and edge grids centred on their centroids, centroids fed separately (on mean aggregation)",
+   "seeds": [
+    2,
+    3
+   ]
+  },
+  {
+   "rev": "e09d1fb",
+   "subject": "Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)",
+   "seeds": [
+    2,
+    3
+   ]
+  }
+ ]
+}

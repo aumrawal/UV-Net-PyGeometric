@@ -1,0 +1,22 @@
+{
+ "batch": "1115-101731",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "266993a",
+   "subject": "AdamW with weight decay 0.05 (on hidden 128)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "519aa97",
+   "subject": "EMA of weights (decay 0.999), evaluate the EMA model (on hidden 128)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

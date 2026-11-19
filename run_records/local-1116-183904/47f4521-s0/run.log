@@ -1,0 +1,24 @@
+/private/tmp/claude-502/-Users-aum--claude-spares-spare-Xkyg1A/674f0ebe-020a-426a-8103-1b6132713a0d/scratchpad/venv/lib/python3.13/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+device cpu | 160 training parts | 3,665,164 parameters | budget 3s
+epoch   1 | step      2 | train loss nan | train time      3s
+epoch   2 | step      3 | train loss nan | train time      4s
+---
+val_miou:         0.020213
+val_miou8:        0.017686
+val_acc:          0.141491
+val_loss:         nan
+training_seconds: 3.7
+total_seconds:    4.1
+peak_vram_mb:     0.0
+num_epochs:       2
+num_steps:        3
+num_params_M:     3.67
+iou_ExtrudeSide: 0.1415
+iou_ExtrudeEnd: 0.0000
+iou_CutSide: 0.0000
+iou_CutEnd: 0.0000
+iou_Fillet: 0.0000
+iou_Chamfer: 0.0000
+iou_RevolveSide: 0.0000
+iou_RevolveEnd: 0.0000

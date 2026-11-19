@@ -1,0 +1,22 @@
+{
+ "batch": "1116-031015",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "1825f52",
+   "subject": "Random 90-degree rotation per batch, on the GPU (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "c79c085",
+   "subject": "Uniform random rotation per batch, on the GPU (on scale normalisation)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

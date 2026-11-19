@@ -1,0 +1,22 @@
+{
+ "batch": "1116-022403",
+ "budget": 600,
+ "experiments": [
+  {
+   "rev": "9c22fd8",
+   "subject": "Face grids also scale-normalised (RMS radius), log size fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)",
+   "seeds": [
+    0,
+    1
+   ]
+  },
+  {
+   "rev": "e09d1fb",
+   "subject": "Face and edge grids also scale-normalised, log sizes fed separately, radius floored at 0.02 and grids clipped to +-5 (on centring)",
+   "seeds": [
+    0,
+    1
+   ]
+  }
+ ]
+}

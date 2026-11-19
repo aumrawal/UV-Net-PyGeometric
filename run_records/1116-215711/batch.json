@@ -1,0 +1,20 @@
+{
+ "batch": "1116-215711",
+ "budget": 4500,
+ "experiments": [
+  {
+   "rev": "c5a48bc",
+   "subject": "Augmentation: random per-part mirror flip of each axis (on scale normalisation)",
+   "seeds": [
+    0
+   ]
+  },
+  {
+   "rev": "47f4521",
+   "subject": "Augmentation: random per-part scaling of each axis in [0.8, 1.2] (on scale normalisation)",
+   "seeds": [
+    0
+   ]
+  }
+ ]
+}
