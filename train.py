@@ -29,6 +29,7 @@ LR = 2e-3          # peak; warmup then cosine decay to 0 over the time budget
 WARMUP_STEPS = 200
 RANDOM_ROTATE = False
 NUM_WORKERS = 0
+HIDDEN = 128       # message-passing width (NNConv's edge network grows with its square)
 
 # ---------------------------------------------------------------------------------------------
 # Model
@@ -198,15 +199,15 @@ def edge_local_convexity(x, edge_attr, edge_index):
 
 
 class UVNetSegmenter(nn.Module):
-    def __init__(self, num_classes, crv_dim=64, srf_dim=64, graph_dim=128):
+    def __init__(self, num_classes, crv_dim=64, srf_dim=64, graph_dim=128, hidden=HIDDEN):
         super().__init__()
         self.edge_geo = nn.Sequential(nn.Linear(6, crv_dim), nn.LeakyReLU(), nn.Linear(crv_dim, crv_dim))
         self.curve_encoder = CurveEncoder(6, crv_dim)
         self.surface_encoder = SurfaceEncoder(7, srf_dim)
         self.face_pos = nn.Linear(4, srf_dim)   # the face centroid and log size, taken out of the grid the CNN sees
         self.edge_pos = nn.Linear(4, crv_dim)
-        self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim, hidden=128)
-        self.seg = Classifier(graph_dim + 128, num_classes)
+        self.graph_encoder = GraphEncoder(srf_dim, crv_dim, graph_dim, hidden=hidden)
+        self.seg = Classifier(graph_dim + hidden, num_classes)
 
     def forward(self, data):
         ce = data.edge_attr[:, :3].mean(-1)
@@ -230,6 +231,42 @@ class UVNetSegmenter(nn.Module):
 # ---------------------------------------------------------------------------------------------
 # Training
 # ---------------------------------------------------------------------------------------------
+def bench_inference(model, device, batches, reps=5):
+    """Model-only forward time over the val split (batches already on the device), fp32 vs fp16."""
+    model.eval()
+    sync = torch.cuda.synchronize if device.type == "cuda" else (lambda: None)
+    out = {}
+    for name, half in (("fp32", False), ("fp16", True)):
+        with torch.no_grad(), torch.autocast("cuda", dtype=torch.float16, enabled=half and device.type == "cuda"):
+            for b in batches[:5]:
+                model(b)   # warm-up
+            sync()
+            t = time.time()
+            for _ in range(reps):
+                for b in batches:
+                    model(b)
+            sync()
+        out[name] = (time.time() - t) / reps
+    return out
+
+
+def inference_report(model, device):
+    """fp16 inference accuracy of the trained model, and inference time of hidden 64 vs 128, fp32 vs fp16."""
+    import prepare
+    with torch.autocast("cuda", dtype=torch.float16, enabled=device.type == "cuda"):
+        r16 = evaluate(model, device)   # the final fp32 evaluate() below overwrites the result file
+    batches = [b.to(device) for b in DataLoader(prepare._VAL, batch_size=prepare.EVAL_BATCH_SIZE)]
+    n = sum(b.num_graphs for b in batches)
+    print("--- inference")
+    print(f"fp16_val_miou:    {r16['val_miou']:.6f}")
+    print(f"fp16_val_miou8:   {r16['val_miou8']:.6f}")
+    print(f"fp16_val_acc:     {r16['val_acc']:.6f}")
+    for label, m in [("trained", model)] + [(f"h{h}", UVNetSegmenter(NUM_CLASSES, hidden=h).to(device)) for h in (64, 128)]:
+        t = bench_inference(m, device, batches)
+        print(f"infer_{label}: fp32 {t['fp32']:.3f}s fp16 {t['fp16']:.3f}s for {n} parts "
+              f"({n / t['fp32']:.0f} / {n / t['fp16']:.0f} parts/s)")
+
+
 def main():
     t_start = time.time()
     torch.manual_seed(SEED)
@@ -271,6 +308,7 @@ def main():
         print(f"epoch {epoch:3d} | step {step:6d} | train loss {loss_sum / max(n, 1):.4f} | "
               f"train time {train_time:6.0f}s", flush=True)
 
+    inference_report(model, device)
     result = evaluate(model, device)
     peak_mb = torch.cuda.max_memory_allocated() / 2**20 if device.type == "cuda" else 0.0
     print("---")
