@@ -154,3 +154,19 @@ CutEnd .672/.681, Fillet .845/.838, Chamfer .857/.831, RevolveSide .749/.749, Re
   overfitting the val split during the loop.
 - Original UV-Net recipe in this harness: 0.669 val 8-class (promotion-length). Final model: 0.748 test 8-class.
 - Weights: runs/1116-231848/output/results/69b9bd9-s{0,1}/model.pt (local only, not on W&B).
+
+## Batch 1119-100420: fp16 inference and hidden 64 (10 min, seeds 0,1)
+
+Model-only forward time over the 6,056 val parts on a T4, batches preloaded on the GPU, mean of the four runs:
+
+| Model | Params | fp32 | fp16 | fp16 speed-up |
+|---|---|---|---|---|
+| hidden 128 (e09d1fb) | 3.67M | 4.38 s (1,380 parts/s) | 1.75 s (3,450 parts/s) | 2.5x |
+| hidden 64 | 1.38M | 3.65 s (1,660 parts/s) | 1.54 s (3,930 parts/s) | 2.4x |
+
+- **fp16 inference costs no accuracy**: fp16 vs fp32 val mIoU differ by at most 0.0001 on all four runs, no NaN.
+- **Hidden 64 ties hidden 128**: 7-class 0.7806 (0.7772 / 0.7839) vs control c78bba4 0.7792 (0.7851 / 0.7733)
+  and e09d1fb's 4-seed 0.7840; 8-class 0.711 vs 0.718. Inside the noise; would need seeds 2,3 to separate.
+  It is 17 % faster in fp32 and 12 % in fp16, with 2.7x fewer parameters.
+- Hidden 64 + fp16 runs about 2.8x faster than hidden 128 + fp32 (the configuration the earlier "13 % more
+  than UV-Net" figure was for), so it should be clearly cheaper than the original UV-Net in fp32.
